@@ -18,6 +18,9 @@
   "homepage": "https://github.com/An0nym6/Ren-s-Blog#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2"
   }
 }
