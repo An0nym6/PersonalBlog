@@ -43,6 +43,8 @@ gulp.task('ls', ['jade'], function() {
 
 // express app 启动
 gulp.task('express', ['ls'], function() {
+  app.use(express.static('static'));
+
   app.get('/', function (req, res) {
     res.send('Hello World!');
   });
