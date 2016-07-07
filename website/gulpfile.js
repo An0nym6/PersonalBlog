@@ -1,10 +1,10 @@
 var gulp = require('gulp');
 
-var imageMin = require('gulp-imagemin');
-
 var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
+
+var jade = require('gulp-jade');
 
 var gulpLiveScript = require('gulp-livescript');
 var uglify = require('gulp-uglify');
@@ -25,8 +25,15 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('static/css'));
 });
 
+// 将 jade 编译为 html
+gulp.task('jade', ['sass'], function() {
+  return gulp.src('src/jade/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('static/html'))
+});
+
 // 将 ls 编译为 min.js
-gulp.task('ls', ['sass'], function() {
+gulp.task('ls', ['jade'], function() {
   return gulp.src('src/ls/*.ls')
     .pipe(gulpLiveScript({bare: true}))
     .pipe(uglify())
@@ -46,18 +53,17 @@ gulp.task('express', ['ls'], function() {
 });
 
 // 默认启动项
-gulp.task('default', ['express'], function() {
-
-});
+gulp.task('default', ['express'], function() {});
 
 // 清空编译后的文件
 gulp.task('clean', function() {
-  return del(['static/css/*', 'static/js/*']);
+  return del(['static/css/*', 'static/js/*', 'static/html/*']);
 });
 
 // 观察文件变化
 gulp.task('watch', function() {
   gulp.watch('src/sass/*.sass', ['sass']);
+  gulp.watch('src/jade/*.jade', ['jade']);
   gulp.watch('src/ls/*.ls', ['ls']);
   liveReload.listen();
   gulp.watch(['static/**']).on('change', liveReload.changed);
