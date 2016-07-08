@@ -5,6 +5,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 
 var gulpLiveScript = require('gulp-livescript');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 
 var express = require('express');
@@ -17,22 +18,27 @@ var app = express();
 
 var del = require('del');
 
+livereload = require('gulp-livereload');
+
 // 将 sass 编译为 min.css
 gulp.task('sass', function () {
   return gulp.src('src/sass/*.sass')
     .pipe(sass())
     .pipe(cleanCSS())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('static/css'));
+    .pipe(gulp.dest('static/css'))
+    .pipe(livereload({ start: true }));
 });
 
 // 将 ls 编译为 min.js
 gulp.task('ls', ['sass'], function() {
   return gulp.src('src/ls/*.ls')
     .pipe(gulpLiveScript({bare: true}))
+    .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('static/js'));
+    .pipe(gulp.dest('static/js'))
+    .pipe(livereload({ start: true }));
 });
 
 // express app 启动
@@ -60,9 +66,16 @@ gulp.task('express', ['ls'], function() {
 });
 
 // 默认启动项
-gulp.task('default', ['express'], function() {});
+gulp.task('default', ['express', 'watch'], function() {});
 
 // 清空编译后的文件
 gulp.task('clean', function() {
   return del(['static/css/*', 'static/js/*']);
+});
+
+// 自动编译
+gulp.task('watch', function() {
+  livereload.listen();
+  gulp.watch('src/sass/*.sass', ['sass']);
+  gulp.watch('src/ls/*.ls', ['ls']);
 });
