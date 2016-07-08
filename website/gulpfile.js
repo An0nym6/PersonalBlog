@@ -4,12 +4,14 @@ var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 
-var jade = require('gulp-jade');
-
 var gulpLiveScript = require('gulp-livescript');
 var uglify = require('gulp-uglify');
 
 var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var route = require('./index');
 var app = express();
 
 var del = require('del');
@@ -25,15 +27,8 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('static/css'));
 });
 
-// 将 jade 编译为 html
-gulp.task('jade', ['sass'], function() {
-  return gulp.src('src/jade/*.jade')
-    .pipe(jade())
-    .pipe(gulp.dest('static/html'))
-});
-
 // 将 ls 编译为 min.js
-gulp.task('ls', ['jade'], function() {
+gulp.task('ls', ['sass'], function() {
   return gulp.src('src/ls/*.ls')
     .pipe(gulpLiveScript({bare: true}))
     .pipe(uglify())
@@ -43,11 +38,18 @@ gulp.task('ls', ['jade'], function() {
 
 // express app 启动
 gulp.task('express', ['ls'], function() {
+  // 设置 view engine
+  app.set('views', path.join(__dirname, 'src/jade'));
+  app.set('view engine', 'jade');
+
+  // 基础设置
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
   app.use(express.static('static'));
 
-  app.get('/', function (req, res) {
-    res.send('Hello World!');
-  });
+  // 设置路由
+  app.use('/', route);
 
   app.listen(3000, function () {
     console.log('Example app listening on port 3000');
@@ -59,13 +61,12 @@ gulp.task('default', ['express'], function() {});
 
 // 清空编译后的文件
 gulp.task('clean', function() {
-  return del(['static/css/*', 'static/js/*', 'static/html/*']);
+  return del(['static/css/*', 'static/js/*']);
 });
 
 // 观察文件变化
 gulp.task('watch', function() {
   gulp.watch('src/sass/*.sass', ['sass']);
-  gulp.watch('src/jade/*.jade', ['jade']);
   gulp.watch('src/ls/*.ls', ['ls']);
   liveReload.listen();
   gulp.watch(['static/**']).on('change', liveReload.changed);
