@@ -2,5 +2,14 @@ doctype html
 html
   head
     title= title
-  body
+    meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
+    link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
+    link(rel='stylesheet', type='text/css', href='css/style.min.css')
+  body(ng-app='Ren-s-Blog')
     block content
+    script(src='/node_modules/angular/angular.js')
+    script(src='/node_modules/angular-aria/angular-aria.js')
+    script(src='/node_modules/angular-animate/angular-animate.js')
+    script(src='/node_modules/angular-material/angular-material.js')
+    script(type='text/javascript').
+      angular.module('Ren-s-Blog', ['ngMaterial']);

@@ -9,14 +9,13 @@ var uglify = require('gulp-uglify');
 
 var express = require('express');
 var path = require('path');
+var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var route = require('./index');
 var app = express();
 
 var del = require('del');
-
-var liveReload = require('gulp-livereload');
 
 // 将 sass 编译为 min.css
 gulp.task('sass', function () {
@@ -38,6 +37,9 @@ gulp.task('ls', ['sass'], function() {
 
 // express app 启动
 gulp.task('express', ['ls'], function() {
+  // 设置网站图标
+  app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+
   // 设置 view engine
   app.set('views', path.join(__dirname, 'src/jade'));
   app.set('view engine', 'jade');
@@ -47,6 +49,7 @@ gulp.task('express', ['ls'], function() {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static('static'));
+  app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 
   // 设置路由
   app.use('/', route);
@@ -62,12 +65,4 @@ gulp.task('default', ['express'], function() {});
 // 清空编译后的文件
 gulp.task('clean', function() {
   return del(['static/css/*', 'static/js/*']);
-});
-
-// 观察文件变化
-gulp.task('watch', function() {
-  gulp.watch('src/sass/*.sass', ['sass']);
-  gulp.watch('src/ls/*.ls', ['ls']);
-  liveReload.listen();
-  gulp.watch(['static/**']).on('change', liveReload.changed);
 });
