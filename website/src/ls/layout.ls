@@ -4,7 +4,5 @@ angular.module 'Ren-s-Blog' ['ngMaterial']
   .primaryPalette 'blue'
   .accentPalette 'green'
 .controller 'blogController' ($mdSidenav) !->
-  # 左边栏的收放，有问题
-  @toggleUsersList = !->
+  @toggleList = !->
     $mdSidenav 'left' .toggle()
-    console.log 1
