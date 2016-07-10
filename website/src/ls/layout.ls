@@ -1,8 +1,8 @@
 angular.module 'Ren-s-Blog' ['ngMaterial']
 .config ($mdThemingProvider) !->
-  $mdThemingProvider.theme 'default'
+  $mdThemingProvider.theme 'toolBar'
   .primaryPalette 'blue'
-  .accentPalette 'green'
+  .accentPalette 'pink'
 .controller 'blogController' ($mdSidenav) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()

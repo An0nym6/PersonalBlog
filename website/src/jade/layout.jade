@@ -6,13 +6,17 @@ html
     link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
   body(ng-app='Ren-s-Blog', layout='column', ng-controller='blogController as bc')
-    md-toolbar(layout='row')
+    md-toolbar(layout='row', md-theme='toolBar')
       div.md-toolbar-tools
         md-button.md-icon-button(aria-label='Menu', ng-click='bc.toggleList()')
           md-icon(md-svg-icon='icons/menu.svg')
-        h2
-          span Random Thoughts
+        h1 RANDOM THOUGHTS
         span(flex)
+        md-input-container.md-block
+          label
+            md-icon(md-svg-icon='icons/search.svg')
+            | 搜 索
+          input
 
     div(flex, layout='row')
       md-sidenav.md-whiteframe-z2(md-component-id='left', ng-click='bc.toggleList()')

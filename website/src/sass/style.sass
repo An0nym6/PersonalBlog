@@ -1,2 +1,27 @@
+md-toolbar
+  height: 76px
+  .md-toolbar-tools
+    margin: auto
+  .md-input-focused
+    transform: translateY(8px)
+    -ms-transform: translateY(8px)     /* IE 9 */
+    -moz-transform: translateY(8px)    /* Firefox */
+    -webkit-transform: translateY(8px) /* Safari 和 Chrome */
+    -o-transform: translateY(8px)      /* Opera */
+  md-input-container
+    transition: transform 200ms
+    -moz-transition: transform 200ms    /* Firefox 4 */
+    -webkit-transition: transform 200ms /* Safari 和 Chrome */
+    -o-transition: transform 200ms      /* Opera */
+    label
+      color: white !important
+      md-icon
+        margin-right: 8px
+    input
+      color: white !important
+      border-color: white !important
+    .md-errors-spacer
+      display: none
+
 md-content
   margin: 12px
