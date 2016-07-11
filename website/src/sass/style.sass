@@ -28,11 +28,27 @@ md-toolbar
 .nav-header
   height: 198px
   background-color: #0091ea
+  color: white
   img
     width: 80px
     height: 80px
     border-radius: 40px
-    margin: 16px
+    margin: 16px 0px 0px 16px
+    @media screen and (max-width: 350px)
+      width: 64px
+      height: 64px
+      border-radius: 32px
+      margin: 12px 0px 0px 12px
+  .chinese-title
+    font-size: 1.1em
+    margin: 44px 0px 0px 8px
+    @media screen and (max-width: 350px)
+      font-size: 1em
+      margin: 32px 0px 0px 4px
+  .nav-button
+    div
+      font-size: 0.8em
+      text-align: center
 
 #main-content
   margin: 12px

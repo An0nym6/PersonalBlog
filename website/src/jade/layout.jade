@@ -19,13 +19,29 @@ html
           input
 
     div(layout='row')
-      md-sidenav.md-whiteframe-z2(md-component-id='left', ng-click='bc.toggleList()')
+      md-sidenav.md-whiteframe-z2(md-component-id='left')
         div.nav-header(layout='column')
-          div(flex='80', layout='row')
-            div(flex='50', layout-align='center')
+          div(flex='66', layout='row')
+            div(flex='33')
               img(src='img/avatar.png')
-            div(flex='50')
-          div(flex='20')
+            div(flex='66', layout='row')
+              div.chinese-title 刘忍的个人博客
+          div.nav-button(flex='33', layout='row')
+            div(flex='33')
+              md-button.md-icon-button(aria-label='Like')
+                md-icon(md-svg-icon='icons/like.svg')
+              br
+              | 100 人喜欢
+            div(flex='33')
+              md-button.md-icon-button(aria-label='Visit')
+                md-icon(md-svg-icon='icons/visit.svg')
+              br
+              | 100 次访问
+            div(flex='33')
+              md-button.md-icon-button(aria-label='Visit')
+                md-icon(md-svg-icon='icons/share.svg')
+              br
+              | 分享这个博客
       block content
     script(src='/node_modules/angular/angular.js')
     script(src='/node_modules/angular-aria/angular-aria.js')
