@@ -42,6 +42,25 @@ html
                 md-icon(md-svg-icon='icons/share.svg')
               br
               | 分享这个博客
+        md-list.nav-list
+          md-list-item
+            md-button(layout='row')
+              md-icon(flex='33', md-svg-icon='icons/blog.svg')
+              span(flex='33')
+                | 博
+                text(style='opacity: 0') 空
+                | 文
+              span(flex='33')
+          md-list-item
+            md-button(layout='row')
+              md-icon(flex='33', md-svg-icon='icons/show.svg')
+              span(flex='33') 创意秀
+              span(flex='33')
+          md-list-item
+            md-button(layout='row')
+              md-icon(md-svg-icon='icons/timeline.svg')
+              span(flex='33') 时间轴
+              span(flex='33')
       block content
     script(src='/node_modules/angular/angular.js')
     script(src='/node_modules/angular-aria/angular-aria.js')
