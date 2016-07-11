@@ -4,6 +4,6 @@
 
 新博客将在 liurencloud.com 上运行，欢迎大家访问。
 
-My old blog(liuren.link) had been online for a whole year. It was just a static website. Currently I'm working on a brand new SPA blog using the server of Tencent Cloud, and the older one is no longer accessible. I'll only use it for @liuren.link emails and manage my static resources. The new blog is based on MEAN, which stands for Mongo DB, Express, Angular and Node.js. I'll use a specific new technology of Angular to build my frontend -- Angular Material.
+My old blog (liuren.link) had been online for a whole year. It was just a static website. Currently I'm working on a brand new SPA blog using the server of Tencent Cloud, and the older one is no longer accessible. I'll only use it for @liuren.link emails and manage my static resources. The new blog is based on MEAN, which stands for Mongo DB, Express, Angular and Node.js. I'll use a specific new technology of Angular to build my frontend -- Angular Material.
 
 The domain for my new blog is liurencloud.com. I hope you like it :)
