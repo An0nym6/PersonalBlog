@@ -5,8 +5,8 @@ html
     meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
     link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
-  body(ng-app='Ren-s-Blog', layout='column', ng-controller='blogController as bc')
-    md-toolbar(layout='row', md-theme='toolBar')
+  body(ng-app='Ren-s-Blog', layout='column', ng-controller='blogController as bc', md-theme='default')
+    md-toolbar(layout='row')
       div.md-toolbar-tools
         md-button.md-icon-button(aria-label='Menu', ng-click='bc.toggleList()')
           md-icon(md-svg-icon='icons/menu.svg')
@@ -18,8 +18,14 @@ html
             | 搜 索
           input
 
-    div(flex, layout='row')
+    div(layout='row')
       md-sidenav.md-whiteframe-z2(md-component-id='left', ng-click='bc.toggleList()')
+        div.nav-header(layout='column')
+          div(flex='80', layout='row')
+            div(flex='50', layout-align='center')
+              img(src='img/avatar.png')
+            div(flex='50')
+          div(flex='20')
       block content
     script(src='/node_modules/angular/angular.js')
     script(src='/node_modules/angular-aria/angular-aria.js')
