@@ -20,54 +20,62 @@ html
 
     div(layout='row')
       md-sidenav.md-whiteframe-z2(md-component-id='left')
-        div.nav-header(layout='column')
-          div(flex='66', layout='row')
-            div(flex='33')
-              img(src='img/avatar.png')
+        md-content(layout='column', layout-fill)
+          header.nav-header(layout='column')
             div(flex='66', layout='row')
-              div.chinese-title 刘忍的个人博客
-          div.nav-button(flex='33', layout='row')
-            div(flex='33')
-              md-button.md-icon-button(aria-label='Like')
-                md-icon(md-svg-icon='icons/like.svg')
-              br
-              | 100 人喜欢
-            div(flex='33')
-              md-button.md-icon-button(aria-label='Visit')
-                md-icon(md-svg-icon='icons/visit.svg')
-              br
-              | 100 次访问
-            div(flex='33')
-              md-button.md-icon-button(aria-label='Visit')
-                md-icon(md-svg-icon='icons/share.svg')
-              br
-              | 分享这个博客
-        md-list.nav-list
-          md-list-item
-            md-button(layout='row')
-              md-icon(flex='33', md-svg-icon='icons/blog.svg')
-              span(flex='33')
-                | 博
-                text(style='opacity: 0') 空
-                | 文
-              span(flex='33')
-          md-list-item
-            md-button(layout='row')
-              md-icon(flex='33', md-svg-icon='icons/show.svg')
-              span(flex='33') 创意秀
-              span(flex='33')
-          md-list-item
-            md-button(layout='row')
-              md-icon(md-svg-icon='icons/timeline.svg')
-              span(flex='33') 时间轴
-              span(flex='33')
-        md-divider
-        md-list.nav-list
-          md-list-item
-            md-button(layout='row')
-              md-icon(flex='33', md-svg-icon='icons/me.svg')
-              span(flex='33') 关于我
-              span(flex='33')
+              div(flex='33')
+                img(src='img/avatar.png')
+              div(flex='66', layout='row')
+                div.chinese-title 刘忍的个人博客
+            div.nav-button(flex='33', layout='row')
+              div(flex='33')
+                md-button.md-icon-button(aria-label='Like')
+                  md-icon(md-svg-icon='icons/like.svg')
+                br
+                | 100 人喜欢
+              div(flex='33')
+                md-button.md-icon-button(aria-label='Visit')
+                  md-icon(md-svg-icon='icons/visit.svg')
+                br
+                | 100 次访问
+              div(flex='33')
+                md-button.md-icon-button(aria-label='Visit')
+                  md-icon(md-svg-icon='icons/share.svg')
+                br
+                | 分享这个博客
+          div(flex)
+            md-list.nav-list
+              md-list-item
+                md-button(layout='row')
+                  md-icon(flex='33', md-svg-icon='icons/blog.svg')
+                  span(flex='33')
+                    | 博
+                    text(style='opacity: 0') 空
+                    | 文
+                  span(flex='33')
+              md-list-item
+                md-button(layout='row')
+                  md-icon(flex='33', md-svg-icon='icons/show.svg')
+                  span(flex='33') 创意秀
+                  span(flex='33')
+              md-list-item
+                md-button(layout='row')
+                  md-icon(md-svg-icon='icons/timeline.svg')
+                  span(flex='33') 时间轴
+                  span(flex='33')
+            md-divider
+            md-list.nav-list
+              md-list-item
+                md-button(layout='row')
+                  md-icon(flex='33', md-svg-icon='icons/me.svg')
+                  span(flex='33') 关于我
+                  span(flex='33')
+          footer.nav-footer(layout='row', flex='none', hide-gt-xs)
+            div(flex='12')
+            md-input-container.md-block(flex='75')
+              label 搜 索
+              input
+            div(flex='12')
       block content
     script(src='/node_modules/angular/angular.js')
     script(src='/node_modules/angular-aria/angular-aria.js')
