@@ -4,6 +4,8 @@ html
     title= title
     meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
     link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
+    link(rel='stylesheet', type='text/css', href='bootstrap/css/bootstrap.min.css')
+    //- 在此引入 Bootstrap 来解决 Angular Material 解决不了的动态响应问题
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
   body(ng-app='Ren-s-Blog', layout='row', ng-controller='blogController as bc', md-theme='default')
     md-sidenav.md-whiteframe-z2(flex, md-is-locked-open='$mdMedia("gt-sm")', md-component-id='left')
