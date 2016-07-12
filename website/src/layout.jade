@@ -17,6 +17,7 @@ html
             md-icon(md-svg-icon='icons/search.svg')
             | 搜 索
           input
+    md-content.fullscreen(ui-view, flex)
 
     div(layout='row')
       md-sidenav.md-whiteframe-z2(md-component-id='left')
@@ -84,7 +85,7 @@ html
               label 搜 索
               input
             div(flex='12')
-      div(ui-view)
+
     script(src='/node_modules/angular/angular.min.js')
     script(src='/node_modules/angular-aria/angular-aria.min.js')
     script(src='/node_modules/angular-animate/angular-animate.min.js')
