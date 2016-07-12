@@ -4,6 +4,8 @@ var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 
+var jade = require('gulp-jade');
+
 var gulpLiveScript = require('gulp-livescript');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
@@ -30,8 +32,16 @@ gulp.task('sass', function () {
     .pipe(livereload({ start: true }));
 });
 
+// 将 jade 编译为 html
+gulp.task('jade', ['sass'], function() {
+  return gulp.src('src/jade/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest('static/html'))
+    .pipe(livereload({ start: true }));
+});
+
 // 将 ls 编译为 min.js
-gulp.task('ls', ['sass'], function() {
+gulp.task('ls', ['jade'], function() {
   return gulp.src('src/ls/*.ls')
     .pipe(gulpLiveScript({bare: true}))
     .pipe(ngAnnotate())
@@ -47,7 +57,7 @@ gulp.task('express', ['ls'], function() {
   app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
   // 设置 view engine
-  app.set('views', path.join(__dirname, 'src/jade'));
+  app.set('views', path.join(__dirname, 'src'));
   app.set('view engine', 'jade');
 
   // 基础设置
@@ -70,12 +80,13 @@ gulp.task('default', ['express', 'watch'], function() {});
 
 // 清空编译后的文件
 gulp.task('clean', function() {
-  return del(['static/css/*', 'static/js/*']);
+  return del(['static/css/*', 'static/js/*', 'static/html/*']);
 });
 
 // 自动编译
 gulp.task('watch', function() {
   livereload.listen();
   gulp.watch('src/sass/*.sass', ['sass']);
+  gulp.watch('src/jade/*.jade', ['jade']);
   gulp.watch('src/ls/*.ls', ['ls']);
 });
