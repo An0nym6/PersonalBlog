@@ -66,6 +66,14 @@ html
             md-divider
             md-list.nav-list
               md-list-item
+                md-button(layout='row', ng-click='bc.navigateTo("home")')
+                  md-icon(flex='33', md-svg-icon='icons/home.svg')
+                  span(flex='33')
+                    | 主
+                    text(style='opacity: 0') 空
+                    | 页
+                  span(flex='33')
+              md-list-item
                 md-button(layout='row', ng-click='bc.navigateTo("aboutMe")')
                   md-icon(flex='33', md-svg-icon='icons/me.svg')
                   span(flex='33') 关于我

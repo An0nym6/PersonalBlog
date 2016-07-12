@@ -7,8 +7,9 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router']
   .accentPalette 'pink'
 
   # 设置路由
-  $urlRouterProvider.otherwise("/blog");
+  $urlRouterProvider.otherwise('/home');
   $stateProvider
+    .state 'home', { url: '/home', templateUrl: 'html/home.html' }
     .state 'blog', { url: '/blog', templateUrl: 'html/blog.html' }
     .state 'show', { url: '/show', templateUrl: 'html/show.html' }
     .state 'timeline', { url: '/timeline', templateUrl: 'html/timeline.html' }
