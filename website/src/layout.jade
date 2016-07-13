@@ -34,7 +34,7 @@ html
         div(flex)
           md-list.nav-list
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("blog")')
+              md-button(layout='row', ng-click='bc.navigateTo("blog")', ng-class='bc.pageSelected.blog')
                 md-icon(flex='33', md-svg-icon='icons/blog.svg')
                 span(flex='33')
                   | 博
@@ -42,19 +42,19 @@ html
                   | 文
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("show")')
+              md-button(layout='row', ng-click='bc.navigateTo("show")', ng-class='bc.pageSelected.show')
                 md-icon(flex='33', md-svg-icon='icons/show.svg')
                 span(flex='33') 创意秀
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("timeline")')
+              md-button(layout='row', ng-click='bc.navigateTo("timeline")', ng-class='bc.pageSelected.timeline')
                 md-icon(md-svg-icon='icons/timeline.svg')
                 span(flex='33') 时间轴
                 span(flex='33')
           md-divider
           md-list.nav-list
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("home")')
+              md-button(layout='row', ng-click='bc.navigateTo("home")', ng-class='bc.pageSelected.home')
                 md-icon(flex='33', md-svg-icon='icons/home.svg')
                 span(flex='33')
                   | 主
@@ -62,7 +62,7 @@ html
                   | 页
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("aboutMe")')
+              md-button(layout='row', ng-click='bc.navigateTo("aboutMe")', ng-class='bc.pageSelected.aboutMe')
                 md-icon(flex='33', md-svg-icon='icons/me.svg')
                 span(flex='33') 关于我
                 span(flex='33')

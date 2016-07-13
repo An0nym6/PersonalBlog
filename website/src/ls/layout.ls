@@ -18,6 +18,24 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router']
 .controller 'blogController' ($mdSidenav, $state) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()
+  
+  @pageSelected =
+    blog: ''
+    show: ''
+    timeline: ''
+    home: ''
+    aboutMe: ''
   @navigateTo = (pageName) !->
+    @pageSelected.blog = ''
+    @pageSelected.show = ''
+    @pageSelected.timeline = ''
+    @pageSelected.home = ''
+    @pageSelected.aboutMe = ''
     $mdSidenav 'left' .toggle()
-    $state.go(pageName);
+    switch pageName
+    | 'blog' => @pageSelected.blog = 'active'
+    | 'show' => @pageSelected.show = 'active'
+    | 'timeline' => @pageSelected.timeline = 'active'
+    | 'home' => @pageSelected.home = 'active'
+    | 'aboutMe' => @pageSelected.aboutMe = 'active'
+    $state.go pageName
