@@ -1,1 +1,38 @@
-md-content(id='main-content') 此处应该为时间轴
+link(rel='stylesheet', type='text/css', href='css/timeline.min.css')
+
+md-content(layout='row', layout-margin, ng-controller='timelineController as tc', style='background-color: #f2f2f2')
+  div(flex='10', hide-xs)
+  div(flex='79', layout='row')
+    div.timeline-container
+      md-button.md-fab(aria-label='Timeline')
+        md-icon(md-svg-src='icons/timeline-light.svg')
+      div.line-of-timeline(style='height: {{tc.timelineHeight}}px')
+      md-button.md-fab(aria-label='Timeline', style='position: absolute; left: 0px; top: 300px')
+        md-icon(md-svg-src='icons/timeline-light.svg')
+    div.event-container(layout='column')
+      div.margin-top
+      div.card-container(layout='row')
+        div(flex='10', hide-xs)
+        div(flex='5', hide-gt-xs)
+        div(flex='90', layout='column')
+          md-card
+            img(ng-src='img/test1.png', class='md-card-image', alt='test1')
+            md-card-title
+              md-card-title-text
+                span.md-headline Test1 Title
+            md-card-content
+              p The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+            md-card-actions(layout='row', layout-align='end center')
+              md-button.md-icon-button(aria-label='Like')
+                md-icon(md-svg-icon='icons/like-dark.svg')
+          md-card
+            img(ng-src='img/test1.png', class='md-card-image', alt='test1')
+            md-card-title
+              md-card-title-text
+                span.md-headline Test1 Title
+            md-card-content
+              p The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+            md-card-actions(layout='row', layout-align='end center')
+              md-button.md-icon-button(aria-label='Like')
+                md-icon(md-svg-icon='icons/like-dark.svg')
+  div(flex='10', hide-xs)
