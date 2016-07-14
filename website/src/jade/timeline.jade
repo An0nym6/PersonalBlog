@@ -11,28 +11,19 @@ md-content(layout='row', layout-margin, ng-controller='timelineController as tc'
         md-icon(md-svg-src='icons/timeline-light.svg')
     div.event-container(layout='column')
       div.margin-top
-      div.card-container(layout='row')
+      div(layout='row')
         div(flex='10', hide-xs)
         div(flex='5', hide-gt-xs)
         div(flex='90', layout='column')
-          md-card
-            img(ng-src='img/test1.png', class='md-card-image', alt='test1')
+          md-card(ng-repeat='point in tc.timeline')
+            img(ng-src='{{point.imgUrl}}', class='md-card-image', alt='Timeline Image')
             md-card-title
               md-card-title-text
-                span.md-headline Test1 Title
+                span.md-headline {{point.title}}
             md-card-content
-              p The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+              p {{point.details}}
             md-card-actions(layout='row', layout-align='end center')
-              md-button.md-icon-button(aria-label='Like')
-                md-icon(md-svg-icon='icons/like-dark.svg')
-          md-card
-            img(ng-src='img/test1.png', class='md-card-image', alt='test1')
-            md-card-title
-              md-card-title-text
-                span.md-headline Test1 Title
-            md-card-content
-              p The titles of Washed Out's breakthrough song and the first single from Paracosm share the two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-            md-card-actions(layout='row', layout-align='end center')
+              span.small-words {{point.time}} | {{point.likes}}人喜欢
               md-button.md-icon-button(aria-label='Like')
                 md-icon(md-svg-icon='icons/like-dark.svg')
   div(flex='10', hide-xs)
