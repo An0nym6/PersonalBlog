@@ -6,16 +6,16 @@ md-content(layout='row', layout-margin, ng-controller='timelineController as tc'
     div.timeline-container
       md-button.md-fab(aria-label='Timeline')
         md-icon(md-svg-src='icons/timeline-light.svg')
-      div.line-of-timeline(style='height: {{tc.timelineHeight}}px')
-      md-button.md-fab(aria-label='Timeline', style='position: absolute; left: 0px; top: 300px')
-        md-icon(md-svg-src='icons/timeline-light.svg')
+      div.line-of-timeline(id='line-of-timeline')
+      md-button.md-fab(ng-repeat='point in tc.timeline', repeat-point-directive, aria-label='Time Points', style='position: absolute; left: 0px;')
+        md-icon(md-svg-src='icons/{{point.icon}}.svg')
     div.event-container(layout='column')
       div.margin-top
       div(layout='row')
-        div(flex='10', hide-xs)
-        div(flex='5', hide-gt-xs)
+        div(flex='5', hide-xs)
+        div(flex='5', id='placeholder')
         div(flex='90', layout='column')
-          md-card(ng-repeat='point in tc.timeline')
+          md-card(ng-repeat='point in tc.timeline', repeat-card-directive)
             img(ng-src='{{point.imgUrl}}', class='md-card-image', alt='Timeline Image')
             md-card-title
               md-card-title-text
