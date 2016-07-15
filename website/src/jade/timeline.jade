@@ -9,6 +9,7 @@ md-content(layout='row', layout-margin, ng-controller='timelineController as tc'
       div.line-of-timeline(id='line-of-timeline')
       md-button.md-fab(ng-repeat='point in tc.timeline', repeat-point-directive, aria-label='Time Points', style='position: absolute; left: 0px;')
         md-icon(md-svg-src='icons/{{point.icon}}.svg')
+      div(id='end-circle')
     div.event-container(layout='column')
       div.margin-top
       div(layout='row')

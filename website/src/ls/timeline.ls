@@ -23,6 +23,7 @@ angular.module 'timeline' ['ngMaterial']
       # 计算时间轴的长度
       placeholderHeight = document.getElementById 'placeholder' .offsetHeight
       document.getElementById 'line-of-timeline' .style.height = 72 + placeholderHeight + 'px'
+      document.getElementById 'end-circle' .style.top = 128 + placeholderHeight + 'px'
       # 计算时间节点的位置
       top = dataService.height + dataService.cards[i][0].offsetHeight / 2
       dataService.points[i][0].style.top = top + 'px'
@@ -47,6 +48,7 @@ angular.module 'timeline' ['ngMaterial']
         # 计算时间轴的长度
         placeholderHeight = document.getElementById 'placeholder' .offsetHeight
         document.getElementById 'line-of-timeline' .style.height = 72 + placeholderHeight + 'px'
+        document.getElementById 'end-circle' .style.top = 128 + placeholderHeight + 'px'
 
 .factory 'dataService', [ ->
   points: [],
