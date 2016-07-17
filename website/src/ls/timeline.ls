@@ -17,6 +17,9 @@ angular.module 'timeline' ['ngMaterial']
 
   # 监控屏幕分辨率变化
   angular.element $window .bind 'resize' !->
+    resize()
+  
+  resize = !->
     dataService.counter = 0
     dataService.height = 44
     for i from 0 to dataService.cards.length - 1 by 1

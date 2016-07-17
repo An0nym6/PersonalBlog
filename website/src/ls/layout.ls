@@ -23,7 +23,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'timeline']
     blog: ''
     show: ''
     timeline: ''
-    home: ''
+    home: 'active'
     aboutMe: ''
   @navigateTo = (pageName) !->
     @pageSelected.blog = ''
