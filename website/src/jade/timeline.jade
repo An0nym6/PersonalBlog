@@ -25,6 +25,6 @@ md-content(layout='row', layout-margin, ng-controller='timelineController as tc'
               p {{point.details}}
             md-card-actions(layout='row', layout-align='end center')
               span.small-words {{point.time}} | {{point.likes}}人喜欢
-              md-button.md-icon-button(aria-label='Like')
+              md-button.md-icon-button.close-icon-button(aria-label='Like')
                 md-icon(md-svg-icon='icons/like-dark.svg')
   div(flex='10', hide-xs)

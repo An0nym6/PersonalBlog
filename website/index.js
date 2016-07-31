@@ -5,6 +5,18 @@ router.get('/', function(req, res, next) {
   res.render('layout', { title: "RANDOM THOUGHTS | 刘忍的个人博客" });
 });
 
+var show = [{imgUrl: 'img/show/algorithm.jpg', title: '算法分享平台',
+             details: '学术网站有 Stackoverflow 这类似的问答型，还有众多的文档和技术博客，' +
+             '却没有一个平台能提供算法的分享与交流…', likes: 21},
+            {imgUrl: 'img/show/usedPhone.jpg', title: '旧手机利用',
+             details: '将旧手机当成钟和提醒，用户从电脑向云端添加事项，手机则会到点提醒...', likes: 49},
+            {imgUrl: 'img/show/DIYApps.jpg', title: 'DIY 应用',
+             details: '用户根据喜好自己通过拖拽设计应用 UI...', likes: 34}];
+
+router.get('/show', function(req, res, next) {
+  res.json(show);
+});
+
 var timeline = [{icon: 'travel', imgUrl: 'img/timeline/timeline1.png', title: '剑桥之旅',
                  details: '悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩...',
                  time: '2015年8月', likes: 12},
