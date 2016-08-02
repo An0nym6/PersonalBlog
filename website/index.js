@@ -5,6 +5,15 @@ router.get('/', function(req, res, next) {
   res.render('layout', { title: "RANDOM THOUGHTS | 刘忍的个人博客" });
 });
 
+var blog = [{title: 'TOEFL 英语笔记——口语部分', details: '本文作为 TOEFL 英语笔记的第一个部分，' +
+             '首先简单地梳理一下 TOEFL 考试的基本组成...', time: '15-AUG-2'},
+            {title: '基于 MM 算法对 BT 模型的排序', details: '现实生活中个体间的差异与优劣往往是以两两' +
+             '比对的形式进行，但是两个个体间的比对有时候会出现如下的困境...', time: '15-JUL-6'}]
+
+router.get('/blog', function(req, res, next) {
+  res.json(blog);
+});
+
 var show = [{imgUrl: 'img/show/algorithm.jpg', title: '算法分享平台',
              details: '学术网站有 Stackoverflow 这类似的问答型，还有众多的文档和技术博客，' +
              '却没有一个平台能提供算法的分享与交流…', likes: 21},

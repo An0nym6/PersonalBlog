@@ -6,7 +6,7 @@ html
     link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
     link(rel='stylesheet', type='text/css', href='css/fonts.min.css')
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
-  body(ng-app='Ren-s-Blog', layout='row', ng-controller='blogController as bc', md-theme='default')
+  body(ng-app='Ren-s-Blog', layout='row', ng-controller='websiteController as wc', md-theme='default')
     md-sidenav.md-whiteframe-z2(flex, md-is-locked-open='$mdMedia("gt-sm")', md-component-id='left')
       md-content(layout='column', layout-fill)
         header.nav-header(layout='column')
@@ -34,7 +34,7 @@ html
         div(flex)
           md-list.nav-list
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("blog")', ng-class='bc.pageSelected.blog')
+              md-button(layout='row', ng-click='wc.navigateTo("blog")', ng-class='wc.pageSelected.blog')
                 md-icon(flex='33', md-svg-icon='icons/blog.svg')
                 span(flex='33')
                   | 博
@@ -42,19 +42,19 @@ html
                   | 文
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("show")', ng-class='bc.pageSelected.show')
+              md-button(layout='row', ng-click='wc.navigateTo("show")', ng-class='wc.pageSelected.show')
                 md-icon(flex='33', md-svg-icon='icons/show.svg')
                 span(flex='33') 创意秀
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("timeline")', ng-class='bc.pageSelected.timeline')
+              md-button(layout='row', ng-click='wc.navigateTo("timeline")', ng-class='wc.pageSelected.timeline')
                 md-icon(md-svg-icon='icons/timeline.svg')
                 span(flex='33') 时间轴
                 span(flex='33')
           md-divider
           md-list.nav-list
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("home")', ng-class='bc.pageSelected.home')
+              md-button(layout='row', ng-click='wc.navigateTo("home")', ng-class='wc.pageSelected.home')
                 md-icon(flex='33', md-svg-icon='icons/home.svg')
                 span(flex='33')
                   | 主
@@ -62,7 +62,7 @@ html
                   | 页
                 span(flex='33')
             md-list-item
-              md-button(layout='row', ng-click='bc.navigateTo("aboutMe")', ng-class='bc.pageSelected.aboutMe')
+              md-button(layout='row', ng-click='wc.navigateTo("aboutMe")', ng-class='wc.pageSelected.aboutMe')
                 md-icon(flex='33', md-svg-icon='icons/me.svg')
                 span(flex='33') 关于我
                 span(flex='33')
@@ -75,7 +75,7 @@ html
     div(layout='column', flex)
       md-toolbar(layout='row')
         div.md-toolbar-tools
-          md-button.md-icon-button(aria-label='Menu', ng-click='bc.toggleList()', hide-gt-sm)
+          md-button.md-icon-button(aria-label='Menu', ng-click='wc.toggleList()', hide-gt-sm)
             md-icon(md-svg-icon='icons/menu.svg')
           h1 RANDOM THOUGHTS
           span(flex)
@@ -91,6 +91,7 @@ html
     script(src='/node_modules/angular-animate/angular-animate.min.js')
     script(src='/node_modules/angular-material/angular-material.min.js')
     script(src='/node_modules/angular-ui-router/release/angular-ui-router.min.js')
+    script(src='/js/blog.min.js')
     script(src='/js/show.min.js')
     script(src='/js/timeline.min.js')
     script(src='/js/layout.min.js')

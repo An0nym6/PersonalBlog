@@ -1,4 +1,4 @@
-angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'show', 'timeline']
+angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline']
 
 .config ($mdThemingProvider, $stateProvider, $urlRouterProvider) !->
   # 定义主题
@@ -15,7 +15,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'show', 'timeline']
     .state 'timeline', { url: '/timeline', templateUrl: 'html/timeline.html' }
     .state 'aboutMe', { url: '/about-me', templateUrl: 'html/aboutMe.html' }
 
-.controller 'blogController' ($mdSidenav, $state) !->
+.controller 'websiteController' ($mdSidenav, $state, $location) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()
   
@@ -23,8 +23,14 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'show', 'timeline']
     blog: ''
     show: ''
     timeline: ''
-    home: 'active'
+    home: ''
     aboutMe: ''
+  switch $location.$$path
+  | '/blog' => @pageSelected.blog = 'active'
+  | '/show' => @pageSelected.show = 'active'
+  | '/timeline' => @pageSelected.timeline = 'active'
+  | '/home' => @pageSelected.home = 'active'
+  | '/aboutMe' => @pageSelected.aboutMe = 'active'
   @navigateTo = (pageName) !->
     @pageSelected.blog = ''
     @pageSelected.show = ''

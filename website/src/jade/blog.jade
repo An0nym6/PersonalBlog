@@ -1,1 +1,25 @@
-md-content(style='background-color: #f2f2f2') 此处应该有博文
+link(rel='stylesheet', type='text/css', href='css/blog.min.css')
+
+md-content.md-padding(layout-xs='column', layout='row', ng-controller='blogController as bc', style='background-color: #f2f2f2')
+  div(flex-xs, flex-gt-xs='50', layout='column')
+    md-card(ng-repeat='card in bc.blog', ng-if='$index % 2 == 0')
+      md-card-title
+        md-card-title-text
+          span.md-headline {{card.title}}
+          span.md-subhead {{card.details}}
+        md-card-title-media
+          div.md-media-sm.card-media(repeat-date-directive) {{card.time.split('-')[2]}}
+          div.month-year {{card.time.split('-')[1]}} {{card.time.split('-')[0]}}
+      md-card-actions(layout='row', layout-align='end center')
+        md-button 阅读博文
+  div(flex-xs, flex-gt-xs='50', layout='column')
+    md-card(ng-repeat='card in bc.blog', ng-if='$index % 2 != 0')
+      md-card-title
+        md-card-title-text
+          span.md-headline {{card.title}}
+          span.md-subhead {{card.details}}
+        md-card-title-media
+          div.md-media-sm.card-media(repeat-date-directive) {{card.time.split('-')[2]}}
+          div.month-year {{card.time.split('-')[1]}} {{card.time.split('-')[0]}}
+      md-card-actions(layout='row', layout-align='end center')
+        md-button 阅读博文
