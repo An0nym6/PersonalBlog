@@ -5,6 +5,13 @@ router.get('/', function(req, res, next) {
   res.render('layout', { title: "RANDOM THOUGHTS | 刘忍的个人博客" });
 });
 
+var likes = 0;
+
+router.get('/game', function(req, res, next) {
+  likes++;
+  res.json(likes);
+});
+
 var blog = [{title: 'TOEFL 英语笔记——口语部分', details: '本文作为 TOEFL 英语笔记的第一个部分，' +
              '首先简单地梳理一下 TOEFL 考试的基本组成...', time: '15-AUG-2'},
             {title: '基于 MM 算法对 BT 模型的排序', details: '现实生活中个体间的差异与优劣往往是以两两' +
