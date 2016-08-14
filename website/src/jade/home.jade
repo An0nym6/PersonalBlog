@@ -3,10 +3,21 @@ link(rel='stylesheet', type='text/css', href='css/home.min.css')
 md-content(style='background-color: #f2f2f2', ng-controller='homeController as hc')
   div.header
     img(src='img/home/homeLogo.png', alt='Home Logo')
-  div(layout-xs='column', layout='row')
+  div.md-padding(layout-xs='column', layout='row')
     div(flex-xs, flex-gt-xs='60', layout='column')
       md-card(id='gameContainer')
         div(style='display:inline-block;text-align:center;')
           iframe(id='gameFrame', src='game.html', frameBorder=0)
     div(flex-xs, flex-gt-xs='40', layout='column')
-      | 123
+      md-card
+        img.md-card-image(ng-src='img/home/homeBackground.jpg', alt='')
+        md-card-title
+          md-card-title-text
+            span.md-headline 欢迎访问
+        md-card-content
+          p 点击屏幕以产生引力场，吸引小球收集心形为这篇博客点赞
+          p 你也可以直接点击右下角的心形点赞
+        md-card-actions(layout='row', layout-align='end center')
+          span.small-words {{wc.likes}} 个点赞
+          md-button.md-icon-button.close-icon-button(aria-label='Like')
+            md-icon(md-svg-icon='icons/like-dark.svg')

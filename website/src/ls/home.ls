@@ -6,6 +6,7 @@ angular.module 'home' ['ngMaterial']
     gameContainer = document.getElementById 'gameContainer'
     gameFrame = document.getElementById 'gameFrame'
     if gameContainer != null && gameFrame != null
+      gameContainer.style.height = gameContainer.offsetWidth + 'px'
       gameFrame.style.width = gameContainer.offsetWidth + 'px'
       gameFrame.style.height = gameContainer.offsetWidth + 'px'
   , 100

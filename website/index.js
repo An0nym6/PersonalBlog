@@ -7,8 +7,12 @@ router.get('/', function(req, res, next) {
 
 var likes = 0;
 
-router.get('/game', function(req, res, next) {
+router.get('/likes', function(req, res, next) {
   likes++;
+  res.json(likes);
+});
+
+router.get('/getLikes', function(req, res, next) {
   res.json(likes);
 });
 

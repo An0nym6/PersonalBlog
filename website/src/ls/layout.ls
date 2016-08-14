@@ -15,7 +15,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
     .state 'timeline', { url: '/timeline', templateUrl: 'html/timeline.html' }
     .state 'aboutMe', { url: '/about-me', templateUrl: 'html/aboutMe.html' }
 
-.controller 'websiteController' ($mdSidenav, $state, $location) !->
+.controller 'websiteController' ($mdSidenav, $state, $location, $interval, $http) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()
   
@@ -45,3 +45,13 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
     | 'home' => @pageSelected.home = 'active'
     | 'aboutMe' => @pageSelected.aboutMe = 'active'
     $state.go pageName
+
+  that = @
+  # 实时刷新人数
+  $interval !->
+    $http { method: 'GET', url: '/getLikes' }
+    .then (response) !->
+      that.likes = response.data
+    , (response) !->
+      console.log response
+  , 1000
