@@ -1,6 +1,6 @@
 angular.module 'home' ['ngMaterial']
 
-.controller 'homeController' ($http, $interval, dataService) !->
+.controller 'homeController' ($interval) !->
   # 实时刷新大小
   $interval !->
     gameContainer = document.getElementById 'gameContainer'

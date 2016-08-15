@@ -1,4 +1,4 @@
-angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline', 'home']
+angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline', 'home', 'aboutMe']
 
 .config ($mdThemingProvider, $stateProvider, $urlRouterProvider) !->
   # 定义主题
@@ -47,6 +47,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
     $state.go pageName
 
   that = @
+
   # 实时刷新人数
   $interval !->
     $http { method: 'GET', url: '/getLikes' }
