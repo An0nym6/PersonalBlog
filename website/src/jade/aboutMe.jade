@@ -3,9 +3,29 @@ link(rel='stylesheet', type='text/css', href='css/aboutMe.min.css')
 md-content(style='background-color: #f2f2f2', layout='column', ng-controller='aboutMeController as amc')
   div.avatarContainer
     img(src='img/avatar.png')
-  div.md-padding
-    md-card(layout='row')
-      div(flex='33')
-      div(flex='33')
-      div(flex='33')
-    md-card(id='contributions')
+  div.md-padding(layout-xs='column', layout='row')
+    md-card(flex-gt-xs='33')
+      md-card-title
+        md-card-title-text
+          span.md-headline 基本信息
+      md-divider
+      md-card-content
+        md-list-item.md-2-line
+          md-icon(md-svg-icon='icons/phone.svg')
+          div.md-list-item-text
+            h4 手机
+            h5 18826073587
+        md-divider
+        md-list-item.md-2-line
+          md-icon(md-svg-icon='icons/email.svg')
+          div.md-list-item-text
+            h4 邮箱
+            h5 0_0@liuren.link
+        md-divider
+        md-list-item.md-2-line
+          md-icon(md-svg-icon='icons/location.svg')
+          div.md-list-item-text
+            h4 地址
+            h5 中国广东省广州市番禺区大学城中山大学至善园 9 号 725 室
+    md-card(flex-gt-xs='33') 2
+    md-card(flex-gt-xs='33') 3
