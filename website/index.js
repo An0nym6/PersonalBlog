@@ -48,4 +48,16 @@ router.get('/timeline', function(req, res, next) {
   res.json(timeline);
 });
 
+var aboutMeComments = [{name: '刘忍', text: '网站做的真好看！'},
+                       {name: '罗小黑', text: '喵~'}];
+
+router.get('/aboutMeComments', function(req, res, next) {
+  res.json(aboutMeComments);
+});
+
+router.post('/aboutMeComments', function(req, res, next) {
+  aboutMeComments.unshift(req.body);
+  res.json(aboutMeComments);
+});
+
 module.exports = router;
