@@ -28,6 +28,8 @@ angular.module 'aboutMe' ['ngMaterial', 'ngMessages', 'ngCookies']
 
     that = @
     name = addComment.name.value
+    if ($scope.isKeepName == false)
+      addComment.name.value = ''
     text = addComment.text.value
     addComment.text.value = ''
     $http { method: 'POST', url: '/aboutMeComments', data: { name: name, text: text } }

@@ -57,12 +57,12 @@ md-content(style='background-color: #f2f2f2', layout='column', ng-controller='ab
           span.md-headline 留言板
       md-card-content
         md-list.md-dense
-          md-list-item.md-2-line(ng-repeat='comment in amc.comments')
+          md-list-item.md-2-line(ng-repeat='comment in amc.comments', ng-if='$index < 10')
             div.comment-avatar {{comment.name[0]}}
             div.md-list-item-text(layout='column')
               h4 {{comment.name}}
               h5 {{comment.text}}
-            md-divider(ng-if='!$last')
+            md-divider(ng-if='!$last && $index < 9')
     md-card
       md-card-title
         md-card-title-text
