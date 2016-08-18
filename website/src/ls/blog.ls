@@ -2,7 +2,11 @@ cardCount = 0
 
 angular.module 'blog' ['ngMaterial']
 
-.controller 'blogController' ($http) !->
+.config ($stateProvider) !->
+  $stateProvider
+    .state 'essay', { url: '/essay/{title}', templateUrl: 'html/essay.html' }
+
+.controller 'blogController' ($http, $state) !->
   # 请求博文的数据
   that = @
   $http { method: 'GET', url: '/blog' }
@@ -10,6 +14,10 @@ angular.module 'blog' ['ngMaterial']
     that.blog = response.data
   , (response) !->
     console.log response
+
+  # 跳转到具体博文的页面
+  @jumpToEssay = (title) !->
+    $state.go('essay', {title: title})
 
 # 给日期添加颜色
 .directive 'repeatDateDirective' ($timeout) ->

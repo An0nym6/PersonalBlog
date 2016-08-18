@@ -1,4 +1,4 @@
-angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline', 'home', 'aboutMe']
+angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline', 'home', 'aboutMe', 'essay']
 
 .config ($mdThemingProvider, $stateProvider, $urlRouterProvider) !->
   # 定义主题

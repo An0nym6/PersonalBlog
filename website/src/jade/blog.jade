@@ -11,7 +11,7 @@ md-content.md-padding(layout-xs='column', layout='row', ng-controller='blogContr
           div.md-media-sm.card-media(repeat-date-directive) {{card.time.split('-')[2]}}
           div.month-year {{card.time.split('-')[1]}} {{card.time.split('-')[0]}}
       md-card-actions(layout='row', layout-align='end center')
-        md-button 阅读博文
+        md-button(ng-click='bc.jumpToEssay(card.title)') 阅读博文
   div(flex-xs, flex-gt-xs='50', layout='column')
     md-card(ng-repeat='card in bc.blog', ng-if='$index % 2 != 0')
       md-card-title
@@ -22,4 +22,4 @@ md-content.md-padding(layout-xs='column', layout='row', ng-controller='blogContr
           div.md-media-sm.card-media(repeat-date-directive) {{card.time.split('-')[2]}}
           div.month-year {{card.time.split('-')[1]}} {{card.time.split('-')[0]}}
       md-card-actions(layout='row', layout-align='end center')
-        md-button 阅读博文
+        md-button(ng-click='bc.jumpToEssay(card.title)') 阅读博文

@@ -19,10 +19,45 @@ router.get('/getLikes', function(req, res, next) {
 var blog = [{title: 'TOEFL 英语笔记——口语部分', details: '本文作为 TOEFL 英语笔记的第一个部分，' +
              '首先简单地梳理一下 TOEFL 考试的基本组成...', time: '15-AUG-2'},
             {title: '基于 MM 算法对 BT 模型的排序', details: '现实生活中个体间的差异与优劣往往是以两两' +
-             '比对的形式进行，但是两个个体间的比对有时候会出现如下的困境...', time: '15-JUL-6'}]
+             '比对的形式进行，但是两个个体间的比对有时候会出现如下的困境...', time: '15-JUL-6'}];
 
 router.get('/blog', function(req, res, next) {
   res.json(blog);
+});
+
+var essays = [{title: 'TOEFL 英语笔记——口语部分', content: '# TOEFL 英语笔记——口语部分'},
+              {title: '基于 MM 算法对 BT 模型的排序', content: '# 基于 MM 算法对 BT 模型的排序'}];
+
+router.post('/essay', function(req, res, next) {
+  for (i in essays)
+    if (essays[i].title == req.body.title) {
+      res.json(essays[i].content);
+      break;
+    }
+});
+
+// 这里给出一个 comments 的数组，用于所有的文章评论
+var comments = [{name: '刘忍', text: '文章写得真好看！'},
+                {name: '罗小黑', text: '喵~'}];
+
+var essaysComments = [{title: 'TOEFL 英语笔记——口语部分', comments: comments},
+                      {title: '基于 MM 算法对 BT 模型的排序', comments: comments}];
+
+router.post('/essayComments', function(req, res, next) {
+  for (i in essaysComments)
+    if (essaysComments[i].title == req.body.title) {
+      res.json(essaysComments[i].comments);
+      break;
+    }
+});
+
+router.post('/addEssayComments', function(req, res, next) {
+  for (i in essaysComments)
+    if (essaysComments[i].title == req.body.title) {
+      essaysComments[i].comments.unshift({name: req.body.name, text: req.body.text});
+      res.json(essaysComments[i].comments);
+      break;
+    }
 });
 
 var show = [{imgUrl: 'img/show/algorithm.jpg', title: '算法分享平台',
@@ -48,7 +83,7 @@ router.get('/timeline', function(req, res, next) {
   res.json(timeline);
 });
 
-var aboutMeComments = [{name: '刘忍', text: '网站做的真好看！'},
+var aboutMeComments = [{name: '刘忍', text: '网站做得真好看！'},
                        {name: '罗小黑', text: '喵~'}];
 
 router.get('/aboutMeComments', function(req, res, next) {

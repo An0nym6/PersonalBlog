@@ -73,8 +73,8 @@ md-content(style='background-color: #f2f2f2', layout='column', ng-controller='ab
             label 立即参与留言...
             input(ng-model='comment.text', required, md-maxlength='100', name='text')
             div(ng-messages='addComment.text.$error')
-              div(ng-message='required') 评论不能为空
-              div(ng-message='md-maxlength') 评论不能超过 100 字
+              div(ng-message='required') 留言不能为空
+              div(ng-message='md-maxlength') 留言不能超过 100 字
           div(layout='row', flex-gt-xs='40')
             md-input-container.md-block(flex='50')
               label 你的昵称
