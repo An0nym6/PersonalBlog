@@ -82,6 +82,6 @@ md-content(style='background-color: #f2f2f2', layout='column', ng-controller='ab
               div(ng-messages='addComment.name.$error')
                 div(ng-message='required') 昵称不能为空
                 div(ng-message='md-maxlength') 昵称不能超过 10 字
-            md-checkbox(flex='50') 记住昵称
+            md-checkbox(flex='50', ng-model='isKeepName') 记住昵称
         div.submit-button-container
           md-button.md-raised.md-primary(ng-click='amc.submit()') 提 交
