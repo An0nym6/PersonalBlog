@@ -76,7 +76,7 @@ gulp.task('express', ['ls'], function() {
     app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 
     // 设置路由
-    app.use('/', route);
+    app.use('/', route(db));
 
     app.listen(3000, function () {
       console.log('Ren-s-Blog 运行在 3000 端口');
