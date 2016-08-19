@@ -1,4 +1,4 @@
-angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timeline', 'home', 'aboutMe', 'essay']
+angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'blog', 'show', 'timeline', 'home', 'aboutMe', 'essay']
 
 .config ($mdThemingProvider, $stateProvider, $urlRouterProvider) !->
   # 定义主题
@@ -15,7 +15,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
     .state 'timeline', { url: '/timeline', templateUrl: 'html/timeline.html' }
     .state 'aboutMe', { url: '/about-me', templateUrl: 'html/aboutMe.html' }
 
-.controller 'websiteController' ($mdSidenav, $state, $location, $interval, $http) !->
+.controller 'websiteController' ($mdSidenav, $mdDialog, $state, $location, $interval, $http, $scope, clipboard) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()
   
@@ -62,4 +62,36 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
       that.visits = response.data
     , (response) !->
       console.log response
-  , 1000
+  , 100
+
+  # 点赞和分享 button 的动作
+  @plusOneToLikes = !->
+    $http { method: 'GET', url: '/likes' }
+    .then (response) !->
+      that.likes = response.data
+    , (response) !->
+      console.log response
+  @share = (ev) !->
+    if !clipboard.supported
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#mainBody')))
+          .clickOutsideToClose(true)
+          .title('分享失败')
+          .textContent('抱歉，功能尚不兼容此浏览器。')
+          .ariaLabel('分享网站链接')
+          .ok('知道了！')
+          .targetEvent(ev)
+      );
+    else
+      clipboard.copyText $location.$$absUrl
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element(document.querySelector('#mainBody')))
+          .clickOutsideToClose(true)
+          .title('分享成功')
+          .textContent('正在浏览的网页链接已复制到剪贴板。')
+          .ariaLabel('分享网站链接')
+          .ok('知道了！')
+          .targetEvent(ev)
+      );

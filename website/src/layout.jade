@@ -5,7 +5,7 @@ html
     meta(name='viewport', content='initial-scale=1, maximum-scale=1, user-scalable=no')
     link(rel='stylesheet', href='/node_modules/angular-material/angular-material.css')
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
-  body(ng-app='Ren-s-Blog', layout='row', ng-controller='websiteController as wc', md-theme='default')
+  body(ng-app='Ren-s-Blog', layout='row', ng-controller='websiteController as wc', md-theme='default', id='mainBody')
     md-sidenav.md-whiteframe-z2(flex, md-is-locked-open='$mdMedia("gt-sm")', md-component-id='left')
       md-content(layout='column', layout-fill)
         header.nav-header(layout='column')
@@ -16,7 +16,7 @@ html
               div.chinese-title 刘忍的个人博客
           div.nav-button(flex='33', layout='row')
             div(flex='33')
-              md-button.md-icon-button(aria-label='Like')
+              md-button.md-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes($event)')
                 md-icon(md-svg-icon='icons/like.svg')
               br
               | {{wc.likes}} 个点赞
@@ -26,7 +26,7 @@ html
               br
               | {{wc.visits}} 次访问
             div(flex='33')
-              md-button.md-icon-button(aria-label='Share')
+              md-button.md-icon-button(aria-label='Share', ng-click='wc.share()')
                 md-icon(md-svg-icon='icons/share.svg')
               br
               | 分享这个博客
@@ -89,6 +89,7 @@ html
     script(src='/node_modules/angular-aria/angular-aria.min.js')
     script(src='/node_modules/angular-animate/angular-animate.min.js')
     script(src='/node_modules/angular-cookies/angular-cookies.min.js')
+    script(src='/node_modules/angular-clipboard/angular-clipboard.js')
     script(src='/node_modules/angular-marked/dist/angular-marked.min.js')
     script(src='/node_modules/angular-material/angular-material.min.js')
     script(src='/node_modules/angular-messages/angular-messages.min.js')

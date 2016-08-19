@@ -37,13 +37,13 @@ var plusOneToBasicInfo = function(db, likesOrVisits, callback) {
       counts = docs.likes + 1;
       basicInfo.updateOne({}, {$set: {likes : counts}}, function(err, result) {
         assert.equal(err, null);
-        callback(result);
+        callback(counts);
       });
     } else {
       counts = docs.visits + 1;
       basicInfo.updateOne({}, {$set: {visits : counts}}, function(err, result) {
         assert.equal(err, null);
-        callback(result);
+        callback(counts);
       });
     }
   }); 
