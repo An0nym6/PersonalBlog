@@ -50,9 +50,16 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'blog', 'show', 'timelin
 
   # 实时刷新人数
   $interval !->
+    # 点赞
     $http { method: 'GET', url: '/getLikes' }
     .then (response) !->
       that.likes = response.data
+    , (response) !->
+      console.log response
+    # 访问量
+    $http { method: 'GET', url: '/visits' }
+    .then (response) !->
+      that.visits = response.data
     , (response) !->
       console.log response
   , 1000

@@ -53,36 +53,25 @@ gulp.task('ls', ['jade'], function() {
 
 // express app 启动
 gulp.task('express', ['ls'], function() {
-  // 启动 MongoDB
-  var MongoClient = require('mongodb').MongoClient
-    , assert = require('assert');
-  var url = 'mongodb://localhost:27017/Ren-s-Blog';
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    console.log('成功启动 MongoDB');
+  // 设置网站图标
+  app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 
-    // 设置网站图标
-    app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+  // 设置 view engine
+  app.set('views', path.join(__dirname, 'src'));
+  app.set('view engine', 'jade');
 
-    // 设置 view engine
-    app.set('views', path.join(__dirname, 'src'));
-    app.set('view engine', 'jade');
+  // 基础设置
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static('static'));
+  app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 
-    // 基础设置
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cookieParser());
-    app.use(express.static('static'));
-    app.use('/node_modules', express.static(__dirname + '/node_modules/'));
+  // 设置路由
+  app.use('/', route);
 
-    // 设置路由
-    app.use('/', route(db));
-
-    app.listen(3000, function () {
-      console.log('Ren-s-Blog 运行在 3000 端口');
-    });
-
-    db.close();
+  app.listen(3000, function () {
+    console.log('Ren-s-Blog 运行在 3000 端口');
   });
 });
 
