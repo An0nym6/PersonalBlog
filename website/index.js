@@ -95,12 +95,27 @@ var blog = [{title: 'TOEFL 英语笔记——口语部分', details: '本文作�
             {title: '基于 MM 算法对 BT 模型的排序', details: '现实生活中个体间的差异与优劣往往是以两两' +
              '比对的形式进行，但是两个个体间的比对有时候会出现如下的困境...', time: '15-JUL-6'}];
 
+// 获取博客数据
 router.get('/blog', function(req, res, next) {
   res.json(blog);
 });
 
 var essays = [{title: 'TOEFL 英语笔记——口语部分', content: '# TOEFL 英语笔记——口语部分'},
               {title: '基于 MM 算法对 BT 模型的排序', content: '# 基于 MM 算法对 BT 模型的排序'}];
+
+// 删除博客数据
+router.post('/deleteEssay', function(req, res, next) {
+  res.json('success');
+});
+
+router.post('/addEssay', function(req, res, next) {
+  var date = (new Date()).toString().split(' ');
+  console.log(req.body);
+  blog.unshift({title: req.body.title, details: req.body.details,
+                time: date[3].substr(2, 2) + '-' + date[1] + '-' + date[2]});
+  essays.unshift({title: req.body.title, content: req.body.content});
+  res.json('success');
+});
 
 router.post('/essay', function(req, res, next) {
   for (i in essays)

@@ -1,4 +1,4 @@
-angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'blog', 'show', 'timeline', 'home', 'aboutMe', 'essay']
+angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'blog', 'show', 'timeline', 'home', 'aboutMe', 'essay', 'admin']
 
 .config ($mdThemingProvider, $stateProvider, $urlRouterProvider) !->
   # 定义主题
@@ -9,11 +9,13 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
   # 设置路由
   $urlRouterProvider.otherwise('/home');
   $stateProvider
-    .state 'home', { url: '/home', templateUrl: 'html/home.html' }
-    .state 'blog', { url: '/blog', templateUrl: 'html/blog.html' }
-    .state 'show', { url: '/show', templateUrl: 'html/show.html' }
-    .state 'timeline', { url: '/timeline', templateUrl: 'html/timeline.html' }
-    .state 'aboutMe', { url: '/about-me', templateUrl: 'html/aboutMe.html' }
+    .state 'home', {url: '/home', templateUrl: 'html/home.html'}
+    .state 'blog', {url: '/blog', templateUrl: 'html/blog.html'}
+    .state 'show', {url: '/show', templateUrl: 'html/show.html'}
+    .state 'timeline', {url: '/timeline', templateUrl: 'html/timeline.html'}
+    .state 'aboutMe', {url: '/about-me', templateUrl: 'html/aboutMe.html'}
+    # 管理员页面
+    .state 'admin', {url: '/the-very-important-page', templateUrl: 'html/admin.html'}
 
 .controller 'websiteController' ($mdSidenav, $mdDialog, $state, $location, $interval, $http, $scope, clipboard) !->
   @toggleList = !->

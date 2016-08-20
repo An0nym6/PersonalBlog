@@ -1,0 +1,28 @@
+link(rel='stylesheet', type='text/css', href='css/admin.min.css')
+
+md-content.md-padding(style='background-color: #f2f2f2', layout='column', ng-controller='adminController as ac')
+  //- 博文管理
+  md-card
+    md-card-title
+      md-card-title-text
+        span.md-headline 博文管理
+    md-card-content
+      md-subheader 博文一览表
+      md-list
+        md-list-item(ng-repeat='essay in ac.blog', ng-click)
+          p {{essay.title}}
+          md-icon.md-secondary.md-hue-3(md-svg-src='icons/delete.svg', ng-click='ac.deleteEssay(essay.title, $event)', aria-label='Delete Essay')
+      md-divider
+      md-subheader 添加新的博文
+      form(name='addEssay').md-padding
+        md-input-container.md-block
+          label 博文标题
+          input(name='essayTitle')
+        md-input-container.md-block
+          label 博文详情
+          input(name='essayDetails')
+        md-input-container.md-block
+          label 博文内容（Markdown）
+          input(name='essayContent')
+        div.submit-button-container
+          md-button.md-raised.md-primary(ng-click='ac.submitEssay($event)') 提 交
