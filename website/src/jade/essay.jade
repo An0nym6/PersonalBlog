@@ -2,7 +2,9 @@
 link(rel='stylesheet', type='text/css', href='css/aboutMe.min.css')
 
 md-content.md-padding(style='background-color: #f2f2f2', ng-controller='essayController as ec', layout='column')
-  div(marked='essay')
+  md-card
+    md-card-content
+      div(marked='essay')
   md-card
     md-card-title
       md-card-title-text
