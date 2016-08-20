@@ -90,39 +90,85 @@ router.get('/getLikes', function(req, res, next) {
   });
 });
 
-var blog = [{title: 'TOEFL 英语笔记——口语部分', details: '本文作为 TOEFL 英语笔记的第一个部分，' +
-             '首先简单地梳理一下 TOEFL 考试的基本组成...', time: '15-AUG-2'},
-            {title: '基于 MM 算法对 BT 模型的排序', details: '现实生活中个体间的差异与优劣往往是以两两' +
-             '比对的形式进行，但是两个个体间的比对有时候会出现如下的困境...', time: '15-JUL-6'}];
-
-// 获取博客数据
+// 获取博文数据
+var findBlogInfo = function(db, callback) {
+  var blog = db.collection('blog');
+  blog.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
 router.get('/blog', function(req, res, next) {
-  res.json(blog);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findBlogInfo(db, function(blog) {
+      db.close();
+      res.json(blog.reverse());
+    });
+  });
 });
-
-var essays = [{title: 'TOEFL 英语笔记——口语部分', content: '# TOEFL 英语笔记——口语部分'},
-              {title: '基于 MM 算法对 BT 模型的排序', content: '# 基于 MM 算法对 BT 模型的排序'}];
-
-// 删除博客数据
-router.post('/deleteEssay', function(req, res, next) {
-  res.json('success');
-});
-
-router.post('/addEssay', function(req, res, next) {
-  var date = (new Date()).toString().split(' ');
-  console.log(req.body);
-  blog.unshift({title: req.body.title, details: req.body.details,
-                time: date[3].substr(2, 2) + '-' + date[1] + '-' + date[2]});
-  essays.unshift({title: req.body.title, content: req.body.content});
-  res.json('success');
-});
-
+// 获取博文内容
+var findBlogContent = function(db, title, callback) {
+  var essays = db.collection('essays');
+  essays.find({title: title}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs[0]);
+  });
+}
 router.post('/essay', function(req, res, next) {
-  for (i in essays)
-    if (essays[i].title == req.body.title) {
-      res.json(essays[i].content);
-      break;
-    }
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findBlogContent(db, req.body.title, function(essay) {
+      db.close();
+      res.json(essay.content);
+    });
+  });
+});
+
+// 添加一篇新的博文
+var addAnEssay = function(db, req, callback) {
+  var date = (new Date()).toString().split(' ');
+  var blog = db.collection('blog');
+  blog.insert({title: req.body.title, details: req.body.details, time: date[3].substr(2, 2) +
+               '-' + date[1] + '-' + date[2]}, function(err, result) {
+    assert.equal(err, null);
+    var essays = db.collection('essays');
+    essays.insert({title: req.body.title, content: req.body.content}, function(err, result) {
+      assert.equal(err, null);
+      callback(result);
+    });
+  });
+}
+router.post('/addEssay', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    addAnEssay(db, req, function() {
+      db.close();
+      res.json('success');
+    });
+  });
+});
+
+// 删除一篇博文
+var deleteAnEssay = function(db, title, callback) {
+  var blog = db.collection('blog');
+  blog.deleteOne({title: title}, function(err, result) {
+    assert.equal(err, null);
+    var essays = db.collection('essays');
+    essays.deleteOne({title: title}, function(err, result) {
+      assert.equal(err, null);
+      callback(result);
+    });
+  });
+}
+router.post('/deleteEssay', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    deleteAnEssay(db, req.body.title, function() {
+      db.close();
+      res.json('success');
+    });
+  });
 });
 
 // 这里给出一个 comments 的数组，用于所有的文章评论
