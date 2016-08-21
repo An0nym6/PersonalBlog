@@ -198,7 +198,7 @@ router.post('/essayComments', function(req, res, next) {
   });
 });
 // 添加某篇博文的评论
-var addAnCommentToAnEssay = function(db, req, callback) {
+var addACommentToAnEssay = function(db, req, callback) {
   var essaysComments = db.collection('essaysComments');
   findCommentsForAnEssay(db, req.body.title, function(comments) {
     comments.unshift({name: req.body.name, text: req.body.text});
@@ -212,23 +212,85 @@ var addAnCommentToAnEssay = function(db, req, callback) {
 router.post('/addEssayComments', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    addAnCommentToAnEssay(db, req, function(comments) {
+    addACommentToAnEssay(db, req, function(comments) {
       db.close();
       res.json(comments);
     });
   });
 });
 
-var show = [{imgUrl: 'img/show/algorithm.jpg', title: '算法分享平台',
-             details: '学术网站有 Stackoverflow 这类似的问答型，还有众多的文档和技术博客，' +
-             '却没有一个平台能提供算法的分享与交流…', likes: 21},
-            {imgUrl: 'img/show/usedPhone.jpg', title: '旧手机利用',
-             details: '将旧手机当成钟和提醒，用户从电脑向云端添加事项，手机则会到点提醒...', likes: 49},
-            {imgUrl: 'img/show/DIYApps.jpg', title: 'DIY 应用',
-             details: '用户根据喜好自己通过拖拽设计应用 UI...', likes: 34}];
-
+// 获取所有的创意秀
+var findShows = function(db, callback) {
+  var shows = db.collection('shows');
+  shows.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
 router.get('/show', function(req, res, next) {
-  res.json(show);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findShows(db, function(shows) {
+      db.close();
+      res.json(shows);
+    });
+  });
+});
+var addAShow = function(db, req, callback) {
+  var shows = db.collection('shows');
+  shows.insert({imgUrl: req.body.imgUrl, title: req.body.title,
+                details: req.body.details, likes: 0}, function(err, result) {
+    assert.equal(err, null);
+    callback(result);
+  });
+}
+router.post('/addShow', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    addAShow(db, req, function(shows) {
+      db.close();
+      res.json('success');
+    });
+  });
+});
+var deleteAShow = function(db, title, callback) {
+  var shows = db.collection('shows');
+  console.log(title);
+  shows.deleteOne({title: title}, function(err, result) {
+    assert.equal(err, null);
+    callback(result);
+  });
+}
+router.post('/deleteShow', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    deleteAShow(db, req.body.title, function(shows) {
+      db.close();
+      res.json('success');
+    });
+  });
+});
+var plusOneToLikesOfShow = function(db, title, callback) {
+  var shows = db.collection('shows');
+  shows.find({title: title}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    count = docs[0].likes + 1;
+    shows.updateOne({title: title}, {$set: {likes : count}}, function(err, result) {
+      assert.equal(err, null);
+      findShows(db, function(shows) {
+        callback(shows);
+      });
+    });
+  });
+}
+router.post('/likeAShow', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    plusOneToLikesOfShow(db, req.body.title, function(shows) {
+      db.close();
+      res.json(shows);
+    });
+  });
 });
 
 var timeline = [{icon: 'travel', imgUrl: 'img/timeline/timeline1.png', title: '剑桥之旅',

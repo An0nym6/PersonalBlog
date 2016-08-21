@@ -22,6 +22,16 @@ angular.module 'admin' ['ngMaterial']
     that.blog = response.data
   , (response) !->
     console.log response
+  # 创建博文
+  @submitEssay = (ev) !->
+    $http { method: 'POST', url: '/addEssay', data: { title: addEssay.essayTitle.value, details: addEssay.essayDetails.value, content: addEssay.essayContent.value } }
+    .then (response) !->
+      if (response.data == 'success')
+        alertMessage('博文已成功发布。', ev);
+      else
+        alertMessage('博文发布失败，需要查明原因。', ev);
+    , (response) !->
+      console.log response
   # 删除博文
   @deleteEssay = (name, ev) !->
     $http { method: 'POST', url: '/deleteEssay', data: { title: name } }
@@ -33,13 +43,30 @@ angular.module 'admin' ['ngMaterial']
     , (response) !->
       console.log response
 
-  @submitEssay = (ev) !->
-    $http { method: 'POST', url: '/addEssay', data: { title: addEssay.essayTitle.value, details: addEssay.essayDetails.value, content: addEssay.essayContent.value } }
+  # 创意秀管理
+  # 请求创意秀的数据
+  $http { method: 'GET', url: '/show' }
+  .then (response) !->
+    that.shows = response.data
+  , (response) !->
+    console.log response
+  # 创建创意秀
+  @submitShow = (ev) !->
+    $http { method: 'POST', url: '/addShow', data: { imgUrl: addShow.showImage.value, title: addShow.showTitle.value, details: addShow.showDetails.value } }
     .then (response) !->
       if (response.data == 'success')
-        alertMessage('博文已成功发布。', ev);
+        alertMessage('创意秀已成功发布。', ev);
       else
-        alertMessage('博文发布失败，需要查明原因。', ev);
+        alertMessage('创意秀发布失败，需要查明原因。', ev);
     , (response) !->
       console.log response
-  
+  # 删除创意秀
+  @deleteShow = (name, ev) !->
+    $http { method: 'POST', url: '/deleteShow', data: { title: name } }
+    .then (response) !->
+      if (response.data == 'success')
+        alertMessage('创意秀已被成功删除。', ev);
+      else
+        alertMessage('创意秀删除失败，需要查明原因。', ev);
+    , (response) !->
+      console.log response

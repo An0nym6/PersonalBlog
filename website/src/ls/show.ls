@@ -8,3 +8,11 @@ angular.module 'show' ['ngMaterial']
     that.show = response.data
   , (response) !->
     console.log response
+
+  # 为某个创意秀点赞
+  @plusOneToLikes = (title) !->
+    $http { method: 'POST', url: '/likeAShow', data: { title: title } }
+    .then (response) !->
+      that.show = response.data
+    , (response) !->
+      console.log response

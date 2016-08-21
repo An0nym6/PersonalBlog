@@ -9,9 +9,9 @@ md-content.md-padding(layout-xs='column', layout='row', ng-controller='showContr
         p {{card.details}}
       md-card-actions(layout='row', layout-align='end center')
         span.small-words {{card.likes}} 个点赞
-        md-button.md-icon-button.close-icon-button(aria-label='Like')
+        md-button.md-icon-button.close-icon-button(aria-label='Like', ng-click='sc.plusOneToLikes(card.title)')
           md-icon(md-svg-icon='icons/like-dark.svg')
-        md-button.md-icon-button.close-icon-button(aria-label='Share')
+        md-button.md-icon-button.close-icon-button(aria-label='Share', ng-click='wc.share($event)')
           md-icon(md-svg-icon='icons/share-dark.svg')
   div(flex-xs, flex-gt-xs='50', layout='column')
     md-card(ng-repeat='card in sc.show', ng-if='$index % 2 != 0')
@@ -23,7 +23,7 @@ md-content.md-padding(layout-xs='column', layout='row', ng-controller='showContr
         p {{card.details}}
       md-card-actions(layout='row', layout-align='end center')
         span.small-words {{card.likes}} 个点赞
-        md-button.md-icon-button.close-icon-button(aria-label='Like')
+        md-button.md-icon-button.close-icon-button(aria-label='Like', ng-click='sc.plusOneToLikes(card.title)')
           md-icon(md-svg-icon='icons/like-dark.svg')
-        md-button.md-icon-button.close-icon-button(aria-label='Share')
+        md-button.md-icon-button.close-icon-button(aria-label='Share', ng-click='wc.share($event)')
           md-icon(md-svg-icon='icons/share-dark.svg')

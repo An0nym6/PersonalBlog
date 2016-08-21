@@ -16,7 +16,7 @@ html
               div.chinese-title 刘忍的个人博客
           div.nav-button(flex='33', layout='row')
             div(flex='33')
-              md-button.md-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes($event)')
+              md-button.md-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes()')
                 md-icon(md-svg-icon='icons/like.svg')
               br
               | {{wc.likes}} 个点赞
@@ -26,7 +26,7 @@ html
               br
               | {{wc.visits}} 次访问
             div(flex='33')
-              md-button.md-icon-button(aria-label='Share', ng-click='wc.share()')
+              md-button.md-icon-button(aria-label='Share', ng-click='wc.share($event)')
                 md-icon(md-svg-icon='icons/share.svg')
               br
               | 分享这个博客
