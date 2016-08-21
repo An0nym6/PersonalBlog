@@ -48,7 +48,6 @@ var plusOneToBasicInfo = function(db, likesOrVisits, callback) {
     }
   }); 
 }
-
 // 访问量
 router.get('/visits', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
@@ -69,7 +68,6 @@ router.get('/', function(req, res, next) {
   });
   res.render('layout', { title: "RANDOM THOUGHTS | 刘忍的个人博客" });
 });
-
 // 点赞
 router.get('/likes', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
@@ -124,18 +122,24 @@ router.post('/essay', function(req, res, next) {
     });
   });
 });
-
 // 添加一篇新的博文
 var addAnEssay = function(db, req, callback) {
   var date = (new Date()).toString().split(' ');
   var blog = db.collection('blog');
+  // 创建博文数据
   blog.insert({title: req.body.title, details: req.body.details, time: date[3].substr(2, 2) +
                '-' + date[1] + '-' + date[2]}, function(err, result) {
     assert.equal(err, null);
+    // 创建博文内容
     var essays = db.collection('essays');
     essays.insert({title: req.body.title, content: req.body.content}, function(err, result) {
       assert.equal(err, null);
-      callback(result);
+      // 创建博文评论
+      var essaysComments = db.collection('essaysComments');
+      essaysComments.insert({title: req.body.title, comments: []}, function(err, result) {
+        assert.equal(err, null);
+        callback(result);
+      });
     });
   });
 }
@@ -148,16 +152,22 @@ router.post('/addEssay', function(req, res, next) {
     });
   });
 });
-
 // 删除一篇博文
 var deleteAnEssay = function(db, title, callback) {
+  // 删除博文数据
   var blog = db.collection('blog');
   blog.deleteOne({title: title}, function(err, result) {
     assert.equal(err, null);
+    // 删除博文内容
     var essays = db.collection('essays');
     essays.deleteOne({title: title}, function(err, result) {
       assert.equal(err, null);
-      callback(result);
+      // 删除博文评论
+      var essaysComments = db.collection('essaysComments');
+      essaysComments.deleteOne({title: title}, function(err, result) {
+        assert.equal(err, null);
+        callback(result);
+      });
     });
   });
 }
@@ -170,29 +180,43 @@ router.post('/deleteEssay', function(req, res, next) {
     });
   });
 });
-
-// 这里给出一个 comments 的数组，用于所有的文章评论
-var comments = [{name: '刘忍', text: '文章写得真好看！'},
-                {name: '罗小黑', text: '喵~'}];
-
-var essaysComments = [{title: 'TOEFL 英语笔记——口语部分', comments: comments},
-                      {title: '基于 MM 算法对 BT 模型的排序', comments: comments}];
-
+// 获取某篇博文的评论
+var findCommentsForAnEssay = function(db, title, callback) {
+  var essaysComments = db.collection('essaysComments');
+  essaysComments.find({title: title}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs[0].comments);
+  });
+}
 router.post('/essayComments', function(req, res, next) {
-  for (i in essaysComments)
-    if (essaysComments[i].title == req.body.title) {
-      res.json(essaysComments[i].comments);
-      break;
-    }
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findCommentsForAnEssay(db, req.body.title, function(comments) {
+      db.close();
+      res.json(comments);
+    });
+  });
 });
-
+// 添加某篇博文的评论
+var addAnCommentToAnEssay = function(db, req, callback) {
+  var essaysComments = db.collection('essaysComments');
+  findCommentsForAnEssay(db, req.body.title, function(comments) {
+    comments.unshift({name: req.body.name, text: req.body.text});
+    essaysComments.updateOne({title: req.body.title}
+      , {$set: {comments: comments} }, function(err, result) {
+      assert.equal(err, null);
+      callback(comments);
+    });
+  });
+}
 router.post('/addEssayComments', function(req, res, next) {
-  for (i in essaysComments)
-    if (essaysComments[i].title == req.body.title) {
-      essaysComments[i].comments.unshift({name: req.body.name, text: req.body.text});
-      res.json(essaysComments[i].comments);
-      break;
-    }
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    addAnCommentToAnEssay(db, req, function(comments) {
+      db.close();
+      res.json(comments);
+    });
+  });
 });
 
 var show = [{imgUrl: 'img/show/algorithm.jpg', title: '算法分享平台',
