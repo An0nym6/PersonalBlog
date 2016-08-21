@@ -123,20 +123,20 @@ router.post('/essay', function(req, res, next) {
   });
 });
 // 添加一篇新的博文
-var addAnEssay = function(db, req, callback) {
+var addAnEssay = function(db, body, callback) {
   var date = (new Date()).toString().split(' ');
   var blog = db.collection('blog');
   // 创建博文数据
-  blog.insert({title: req.body.title, details: req.body.details, time: date[3].substr(2, 2) +
+  blog.insert({title: body.title, details: body.details, time: date[3].substr(2, 2) +
                '-' + date[1] + '-' + date[2]}, function(err, result) {
     assert.equal(err, null);
     // 创建博文内容
     var essays = db.collection('essays');
-    essays.insert({title: req.body.title, content: req.body.content}, function(err, result) {
+    essays.insert({title: body.title, content: body.content}, function(err, result) {
       assert.equal(err, null);
       // 创建博文评论
       var essaysComments = db.collection('essaysComments');
-      essaysComments.insert({title: req.body.title, comments: []}, function(err, result) {
+      essaysComments.insert({title: body.title, comments: []}, function(err, result) {
         assert.equal(err, null);
         callback(result);
       });
@@ -146,7 +146,7 @@ var addAnEssay = function(db, req, callback) {
 router.post('/addEssay', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    addAnEssay(db, req, function() {
+    addAnEssay(db, req.body, function() {
       db.close();
       res.json('success');
     });
@@ -198,11 +198,11 @@ router.post('/essayComments', function(req, res, next) {
   });
 });
 // 添加某篇博文的评论
-var addACommentToAnEssay = function(db, req, callback) {
+var addACommentToAnEssay = function(db, body, callback) {
   var essaysComments = db.collection('essaysComments');
-  findCommentsForAnEssay(db, req.body.title, function(comments) {
-    comments.unshift({name: req.body.name, text: req.body.text});
-    essaysComments.updateOne({title: req.body.title}
+  findCommentsForAnEssay(db, body.title, function(comments) {
+    comments.unshift({name: body.name, text: body.text});
+    essaysComments.updateOne({title: body.title}
       , {$set: {comments: comments} }, function(err, result) {
       assert.equal(err, null);
       callback(comments);
@@ -212,7 +212,7 @@ var addACommentToAnEssay = function(db, req, callback) {
 router.post('/addEssayComments', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    addACommentToAnEssay(db, req, function(comments) {
+    addACommentToAnEssay(db, req.body, function(comments) {
       db.close();
       res.json(comments);
     });
@@ -236,10 +236,10 @@ router.get('/show', function(req, res, next) {
     });
   });
 });
-var addAShow = function(db, req, callback) {
+var addAShow = function(db, body, callback) {
   var shows = db.collection('shows');
-  shows.insert({imgUrl: req.body.imgUrl, title: req.body.title,
-                details: req.body.details, likes: 0}, function(err, result) {
+  shows.insert({imgUrl: body.imgUrl, title: body.title,
+                details: body.details, likes: 0}, function(err, result) {
     assert.equal(err, null);
     callback(result);
   });
@@ -247,7 +247,7 @@ var addAShow = function(db, req, callback) {
 router.post('/addShow', function(req, res, next) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    addAShow(db, req, function(shows) {
+    addAShow(db, req.body, function(shows) {
       db.close();
       res.json('success');
     });
