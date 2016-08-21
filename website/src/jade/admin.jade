@@ -23,6 +23,6 @@ md-content.md-padding(style='background-color: #f2f2f2', layout='column', ng-con
           input(name='essayDetails')
         md-input-container.md-block
           label 博文内容（Markdown）
-          input(name='essayContent')
+          textarea(name='essayContent')
         div.submit-button-container
           md-button.md-raised.md-primary(ng-click='ac.submitEssay($event)') 提 交
