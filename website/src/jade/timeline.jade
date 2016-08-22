@@ -1,14 +1,14 @@
 link(rel='stylesheet', type='text/css', href='css/timeline.min.css')
 
-md-content(layout='row', layout-margin, ng-controller='timelineController as tc', style='background-color: #f2f2f2')
+div(layout='row', layout-margin, ng-controller='timelineController as tc', style='background-color: #f2f2f2')
   div(flex='10', hide-xs)
   div(flex='79', layout='row')
     div.timeline-container
       md-button.md-fab(aria-label='Timeline')
         md-icon(md-svg-src='icons/timeline-light.svg')
-      div.line-of-timeline(id='line-of-timeline')
       md-button.md-fab(ng-repeat='point in tc.timeline', repeat-point-directive, aria-label='Time Points', style='position: absolute; left: 0px;')
         md-icon(md-svg-src='icons/{{point.icon}}.svg')
+      div.line-of-timeline(id='line-of-timeline')
       div(id='end-circle')
     div.event-container(layout='column')
       div.margin-top
