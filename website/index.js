@@ -373,16 +373,42 @@ router.post('/likeATimePoint', function(req, res, next) {
   });
 });
 
-var aboutMeComments = [{name: '刘忍', text: '网站做得真好看！'},
-                       {name: '罗小黑', text: '喵~'}];
-
+// 关于我页面的留言
+// 获取留言
+var findAboutMeComments = function(db, callback) {
+  var aboutMeComments = db.collection('aboutMeComments');
+  aboutMeComments.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
 router.get('/aboutMeComments', function(req, res, next) {
-  res.json(aboutMeComments);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findAboutMeComments(db, function(aboutMeComments) {
+      db.close();
+      res.json(aboutMeComments);
+    });
+  });
 });
-
+// 添加留言
+var insertAboutMeComments = function(db, body, callback) {
+  var aboutMeComments = db.collection('aboutMeComments');
+  aboutMeComments.insert(body, function(err, result) {
+    assert.equal(err, null);
+    findAboutMeComments(db, function(aboutMeComments) {
+      callback(aboutMeComments);
+    });
+  });
+}
 router.post('/aboutMeComments', function(req, res, next) {
-  aboutMeComments.unshift(req.body);
-  res.json(aboutMeComments);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    insertAboutMeComments(db, req.body, function(aboutMeComments) {
+      db.close();
+      res.json(aboutMeComments);
+    });
+  });
 });
 
 module.exports = router
