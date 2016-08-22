@@ -53,3 +53,34 @@ md-content.md-padding(style='background-color: #f2f2f2', layout='column', ng-con
               input(name='showDetails')
             div.submit-button-container
               md-button.md-raised.md-primary(ng-click='ac.submitShow($event)') 提 交
+      //- 时间轴管理
+      md-tab(label='时间轴管理')
+        md-card-title
+          md-card-title-text
+            span.md-headline 时间轴管理
+        md-card-content
+          md-subheader 时间轴一览表
+          md-list
+            md-list-item(ng-repeat='point in ac.timeline', ng-click)
+              p {{point.title}}
+              md-icon.md-secondary.md-hue-3(md-svg-src='icons/delete.svg', ng-click='ac.deleteTimePoint(point.title, $event)', aria-label='Delete Time Point')
+          md-divider
+          md-subheader 添加新的时间节点
+          form(name='addTimePoint').md-padding
+            md-input-container.md-block
+              label 时间节点图标（achievement、study 或 travel）
+              input(name='timePointIcon')
+            md-input-container.md-block
+              label 配图链接
+              input(name='timePointImage')
+            md-input-container.md-block
+              label 时间节点标题
+              input(name='timePointTitle')
+            md-input-container.md-block
+              label 时间节点详情
+              input(name='timePointDetails')
+            md-input-container.md-block
+              label 时间节点时间
+              input(name='timePointTime')
+            div.submit-button-container
+              md-button.md-raised.md-primary(ng-click='ac.submitTimePoint($event)') 提 交

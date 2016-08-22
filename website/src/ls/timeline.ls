@@ -37,6 +37,14 @@ angular.module 'timeline' ['ngMaterial']
         dataService.counter++
         dataService.height += dataService.cards[i][0].offsetHeight
 
+  # 为某个时间节点点赞
+  @plusOneToLikes = (title) !->
+    $http { method: 'POST', url: '/likeATimePoint', data: { title: title } }
+    .then (response) !->
+      that.timeline = response.data
+    , (response) !->
+      console.log response
+
 # 用指令将对应的元素添加进 dataService
 .directive 'repeatPointDirective' (dataService) ->
   (scope, element, attrs) !->

@@ -236,6 +236,7 @@ router.get('/show', function(req, res, next) {
     });
   });
 });
+// 添加新的创意秀
 var addAShow = function(db, body, callback) {
   var shows = db.collection('shows');
   shows.insert({imgUrl: body.imgUrl, title: body.title,
@@ -253,9 +254,9 @@ router.post('/addShow', function(req, res, next) {
     });
   });
 });
+// 删除创意秀
 var deleteAShow = function(db, title, callback) {
   var shows = db.collection('shows');
-  console.log(title);
   shows.deleteOne({title: title}, function(err, result) {
     assert.equal(err, null);
     callback(result);
@@ -270,6 +271,7 @@ router.post('/deleteShow', function(req, res, next) {
     });
   });
 });
+// 为某个创意秀点赞
 var plusOneToLikesOfShow = function(db, title, callback) {
   var shows = db.collection('shows');
   shows.find({title: title}).toArray(function(err, docs) {
@@ -293,15 +295,82 @@ router.post('/likeAShow', function(req, res, next) {
   });
 });
 
-var timeline = [{icon: 'travel', imgUrl: 'img/timeline/timeline1.png', title: '剑桥之旅',
-                 details: '悄悄的我走了，正如我悄悄的来；我挥一挥衣袖，不带走一片云彩...',
-                 time: '2015年8月', likes: 12},
-                {icon: 'study', imgUrl: 'img/timeline/timeline2.png', title: '中山大学',
-                 details: '白云山高，珠江水长，吾校矗立，蔚为国光， 中山手创，遗泽余芳...',
-                 time: '2014年8月', likes: 31}];
-
+// 获取时间轴
+var findTimeline = function(db, callback) {
+  var timeline = db.collection('timeline');
+  timeline.find({}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs);
+  });
+}
 router.get('/timeline', function(req, res, next) {
-  res.json(timeline);
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    findTimeline(db, function(timeline) {
+      db.close();
+      res.json(timeline);
+    });
+  });
+});
+// 添加新的时间节点
+var addATimePoint = function(db, body, callback) {
+  var date = new Date();
+  var timeline = db.collection('timeline');
+  timeline.insert({icon: body.icon, imgUrl: body.imgUrl, title: body.title,
+                   details: body.details, time: body.time,
+                   likes: 0}, function(err, result) {
+    assert.equal(err, null);
+    callback(result);
+  });
+}
+router.post('/addTimePoint', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    addATimePoint(db, req.body, function(shows) {
+      db.close();
+      res.json('success');
+    });
+  });
+});
+// 删除时间节点
+var deleteATimePoint = function(db, title, callback) {
+  var timeline = db.collection('timeline');
+  timeline.deleteOne({title: title}, function(err, result) {
+    assert.equal(err, null);
+    callback(result);
+  });
+}
+router.post('/deleteTimePoint', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    deleteATimePoint(db, req.body.title, function(shows) {
+      db.close();
+      res.json('success');
+    });
+  });
+});
+// 为某个时间节点点赞
+var plusOneToLikesOfTimePoint = function(db, title, callback) {
+  var timeline = db.collection('timeline');
+  timeline.find({title: title}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    count = docs[0].likes + 1;
+    timeline.updateOne({title: title}, {$set: {likes : count}}, function(err, result) {
+      assert.equal(err, null);
+      findTimeline(db, function(timeline) {
+        callback(timeline);
+      });
+    });
+  });
+}
+router.post('/likeATimePoint', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    plusOneToLikesOfTimePoint(db, req.body.title, function(timeline) {
+      db.close();
+      res.json(timeline);
+    });
+  });
 });
 
 var aboutMeComments = [{name: '刘忍', text: '网站做得真好看！'},

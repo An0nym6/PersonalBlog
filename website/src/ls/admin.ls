@@ -33,8 +33,8 @@ angular.module 'admin' ['ngMaterial']
     , (response) !->
       console.log response
   # 删除博文
-  @deleteEssay = (name, ev) !->
-    $http { method: 'POST', url: '/deleteEssay', data: { title: name } }
+  @deleteEssay = (title, ev) !->
+    $http { method: 'POST', url: '/deleteEssay', data: { title: title } }
     .then (response) !->
       if (response.data == 'success')
         alertMessage('博文已被成功删除。', ev);
@@ -61,12 +61,40 @@ angular.module 'admin' ['ngMaterial']
     , (response) !->
       console.log response
   # 删除创意秀
-  @deleteShow = (name, ev) !->
-    $http { method: 'POST', url: '/deleteShow', data: { title: name } }
+  @deleteShow = (title, ev) !->
+    $http { method: 'POST', url: '/deleteShow', data: { title: title } }
     .then (response) !->
       if (response.data == 'success')
         alertMessage('创意秀已被成功删除。', ev);
       else
         alertMessage('创意秀删除失败，需要查明原因。', ev);
+    , (response) !->
+      console.log response
+
+  # 时间轴管理
+  # 请求时间轴数据
+  $http { method: 'GET', url: '/timeline' }
+  .then (response) !->
+    that.timeline = response.data
+  , (response) !->
+    console.log response
+  # 创建时间节点
+  @submitTimePoint = (ev) !->
+    $http { method: 'POST', url: '/addTimePoint', data: { icon: addTimePoint.timePointIcon.value, imgUrl: addTimePoint.timePointImage.value, title: addTimePoint.timePointTitle.value, details: addTimePoint.timePointDetails.value, time: addTimePoint.timePointTime.value } }
+    .then (response) !->
+      if (response.data == 'success')
+        alertMessage('时间节点已成功发布。', ev);
+      else
+        alertMessage('时间节点发布失败，需要查明原因。', ev);
+    , (response) !->
+      console.log response
+  # 删除时间节点
+  @deleteTimePoint = (title, ev) !->
+    $http { method: 'POST', url: '/deleteTimePoint', data: { title: title } }
+    .then (response) !->
+      if (response.data == 'success')
+        alertMessage('时间节点已被成功删除。', ev);
+      else
+        alertMessage('时间节点删除失败，需要查明原因。', ev);
     , (response) !->
       console.log response
