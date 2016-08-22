@@ -9,4 +9,5 @@ angular.module 'home' ['ngMaterial']
       gameContainer.style.height = gameContainer.offsetWidth + 'px'
       gameFrame.style.width = gameContainer.offsetWidth + 'px'
       gameFrame.style.height = gameContainer.offsetWidth + 'px'
+      gameFrame.contentWindow.document.body.style.width = gameContainer.offsetWidth + 'px'
   , 100

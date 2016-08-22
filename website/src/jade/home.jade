@@ -5,9 +5,9 @@ md-content(style='background-color: #f2f2f2', ng-controller='homeController as h
     img(src='img/home/homeLogo.png', alt='Home Logo')
   div.md-padding(layout-xs='column', layout='row')
     div(flex-xs, flex-gt-xs='60', layout='column')
-      md-card(id='gameContainer')
-        div(style='display:inline-block;text-align:center;')
-          iframe(id='gameFrame', src='game.html', frameBorder=0)
+      md-card
+        div(style='display:inline-block;text-align:center;', id='gameContainer')
+          iframe(id='gameFrame', src='game.html', frameBorder=0, width='100%')
     div(flex-xs, flex-gt-xs='40', layout='column')
       md-card
         img.md-card-image(ng-src='img/home/homeBackground.jpg', alt='')

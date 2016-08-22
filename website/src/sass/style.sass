@@ -4,34 +4,12 @@ md-toolbar
     min-height: 64px !important
     button, md-button
       margin-bottom: 2px !important
-    .md-input-focused
-      transform: translateY(12px)
-      -ms-transform: translateY(12px)     /* IE 9 */
-      -moz-transform: translateY(12px)    /* Firefox */
-      -webkit-transform: translateY(12px) /* Safari 和 Chrome */
-      -o-transform: translateY(12px)      /* Opera */
-    md-input-container
-      @media screen and (max-width: 479px)
-        display: none
-      transition: transform 200ms
-      -moz-transition: transform 200ms    /* Firefox 4 */
-      -webkit-transition: transform 200ms /* Safari 和 Chrome */
-      -o-transition: transform 200ms      /* Opera */
-      font-size: 0.9em
-      label
-        color: white !important
-        md-icon
-          margin-right: 8px
-      input
-        color: white !important
-        border-color: white !important
-      .md-errors-spacer
-        display: none
 
 md-sidenav
   max-width: 320px
   .nav-header
     height: 198px
+    min-height: 198px
     background-color: #2196F3
     color: white
     img
@@ -66,11 +44,6 @@ md-sidenav
       background-color: #E7E7E7 !important
     .md-focused
       background-color: #FFFFFF !important
-  .nav-footer
-    @media screen and (min-width: 480px)
-      display: none
-    md-input-container
-      margin: 0px
 
 .fullscreen
   width: 100%
