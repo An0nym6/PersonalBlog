@@ -40,3 +40,12 @@ md-content.md-padding(style='background-color: #f2f2f2', ng-controller='essayCon
           md-checkbox(flex='50', ng-model='isKeepName') 记住昵称
       div.submit-button-container
         md-button.md-raised.md-primary(ng-click='ec.submit()') 提 交
+  md-fab-speed-dial.md-scale.fixed-button(md-direction='up')
+    md-fab-trigger
+      md-button.md-fab.md-accent(aria-label='Menu')
+        md-icon(md-svg-src='icons/menu.svg')
+    md-fab-actions
+      md-button.md-fab.md-raised.md-mini(aria-label='Likes')
+        md-icon(md-svg-src='icons/like-dark.svg')
+      md-button.md-fab.md-raised.md-mini(aria-label='Back')
+        md-icon(md-svg-src='icons/back.svg')
