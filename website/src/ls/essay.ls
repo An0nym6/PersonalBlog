@@ -15,6 +15,12 @@ angular.module 'essay' ['ngMaterial', 'hc.marked']
     that.comments = response.data
   , (response) !->
     console.log response
+  # 请求博文的点赞
+  $http { method: 'POST', url: '/essayLikes', data: { title: $location.$$path.split('/')[2] } }
+  .then (response) !->
+    that.likes = response.data
+  , (response) !->
+    console.log response
 
   # 设置 cookies
   $scope.comment = {}
@@ -44,3 +50,15 @@ angular.module 'essay' ['ngMaterial', 'hc.marked']
       that.comments = response.data
     , (response) !->
       console.log response
+
+  # 给博文点赞
+  @plusOneToLikes = !->
+    $http { method: 'POST', url: '/likeAnEssay', data: { title: $location.$$path.split('/')[2] } }
+    .then (response) !->
+      that.likes = response.data
+    , (response) !->
+      console.log response
+
+  # 回退
+  @back = !->
+    window.history.back()

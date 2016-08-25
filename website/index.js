@@ -128,7 +128,7 @@ var addAnEssay = function(db, body, callback) {
   var blog = db.collection('blog');
   // 创建博文数据
   blog.insert({title: body.title, details: body.details, time: date[3].substr(2, 2) +
-               '-' + date[1] + '-' + date[2]}, function(err, result) {
+               '-' + date[1] + '-' + date[2], likes: 0}, function(err, result) {
     assert.equal(err, null);
     // 创建博文内容
     var essays = db.collection('essays');
@@ -215,6 +215,43 @@ router.post('/addEssayComments', function(req, res, next) {
     addACommentToAnEssay(db, req.body, function(comments) {
       db.close();
       res.json(comments);
+    });
+  });
+});
+// 获取谋篇博文的点赞
+var getLikesOfAnEssay = function(db, title, callback) {
+  var blog = db.collection('blog');
+  blog.find({title: title}).toArray(function(err, docs) {
+    assert.equal(err, null);
+    callback(docs[0].likes);
+  });
+}
+router.post('/essayLikes', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    getLikesOfAnEssay(db, req.body.title, function(likes) {
+      db.close();
+      res.json(likes);
+    });
+  });
+});
+// 为某篇博文点赞
+var plusOneToLikesOfAnEssay = function(db, title, callback) {
+  var blog = db.collection('blog');
+  getLikesOfAnEssay(db, title, function(likes) {
+    count = likes + 1;
+    blog.updateOne({title: title}, {$set: {likes: count} }, function(err, result) {
+      assert.equal(err, null);
+      callback(count);
+    });
+  });
+}
+router.post('/likeAnEssay', function(req, res, next) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    plusOneToLikesOfAnEssay(db, req.body.title, function(likes) {
+      db.close();
+      res.json(likes);
     });
   });
 });
