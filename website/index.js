@@ -118,7 +118,10 @@ router.post('/essay', function(req, res, next) {
     assert.equal(null, err);
     findBlogContent(db, req.body.title, function(essay) {
       db.close();
-      res.json(essay.content);
+      if (essay != undefined)
+        res.json(essay.content);
+      else
+        res.json('### 404~未找到标题为 ' + req.body.title + ' 的文章。')
     });
   });
 });
@@ -185,7 +188,8 @@ var findCommentsForAnEssay = function(db, title, callback) {
   var essaysComments = db.collection('essaysComments');
   essaysComments.find({title: title}).toArray(function(err, docs) {
     assert.equal(err, null);
-    callback(docs[0].comments);
+    if (docs[0] != undefined)
+      callback(docs[0].comments);
   });
 }
 router.post('/essayComments', function(req, res, next) {
@@ -223,7 +227,10 @@ var getLikesOfAnEssay = function(db, title, callback) {
   var blog = db.collection('blog');
   blog.find({title: title}).toArray(function(err, docs) {
     assert.equal(err, null);
-    callback(docs[0].likes);
+    if (docs[0] != undefined)
+      callback(docs[0].likes);
+    else
+      callback(0);
   });
 }
 router.post('/essayLikes', function(req, res, next) {
