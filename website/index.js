@@ -87,7 +87,7 @@ router.get('/getLikes', function(req, res, next) {
     assert.equal(null, err);
     findBasicInfo(db, function(docs) {
       db.close();
-      docs.likes += 10000;
+      docs.likes -= 10000;
       if (docs.likes > 10000)
         docs.likes = (docs.likes / 10000).toFixed(1) + ' 万';
       res.json(docs.likes);
