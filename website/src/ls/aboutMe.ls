@@ -22,18 +22,19 @@ angular.module 'aboutMe' ['ngMaterial', 'ngMessages', 'ngCookies']
 
   # 发送新的留言
   @submit = !->
-    # 设置 cookies
-    $cookies.put('isKeepName', $scope.isKeepName)
-    $cookies.put('keepName', $scope.comment.name)
+    if document.getElementById 'textError' .getElementsByTagName '*' .length == 0 && document.getElementById 'nameError' .getElementsByTagName '*' .length == 0
+      # 设置 cookies
+      $cookies.put('isKeepName', $scope.isKeepName)
+      $cookies.put('keepName', $scope.comment.name)
 
-    that = @
-    name = addComment.name.value
-    if ($scope.isKeepName == false)
-      addComment.name.value = ''
-    text = addComment.text.value
-    addComment.text.value = ''
-    $http { method: 'POST', url: '/aboutMeComments', data: { name: name, text: text } }
-    .then (response) !->
-      that.comments = response.data
-    , (response) !->
-      console.log response
+      that = @
+      name = addComment.name.value
+      if ($scope.isKeepName == false)
+        addComment.name.value = ''
+      text = addComment.text.value
+      addComment.text.value = ''
+      $http { method: 'POST', url: '/aboutMeComments', data: { name: name, text: text } }
+      .then (response) !->
+        that.comments = response.data
+      , (response) !->
+        console.log response
