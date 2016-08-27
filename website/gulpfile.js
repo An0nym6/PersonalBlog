@@ -70,8 +70,8 @@ gulp.task('express', ['ls'], function() {
   // 设置路由
   app.use('/', route);
 
-  app.listen(3000, function () {
-    console.log('Ren-s-Blog 运行在 3000 端口');
+  app.listen(80, function () {
+    console.log('Ren-s-Blog 运行在 80 端口');
   });
 });
 
