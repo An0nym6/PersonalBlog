@@ -1,8 +1,8 @@
 link(rel='stylesheet', type='text/css', href='css/blog.min.css')
 
 md-content.md-padding(layout-xs='column', layout='row', ng-controller='blogController as bc', style='background-color: #f2f2f2')
-  div(flex-xs, flex-gt-xs='50', layout='column', masonry)
-    md-card.masonry-brick(ng-repeat='card in bc.blog', ng-if='$index % 2 == 0')
+  div(flex-xs, flex-gt-xs='50', layout='column')
+    md-card(ng-repeat='card in bc.blog', ng-if='$index % 2 == 0')
       md-card-title
         md-card-title-text
           span.md-headline {{card.title}}
@@ -12,8 +12,8 @@ md-content.md-padding(layout-xs='column', layout='row', ng-controller='blogContr
           div.month-year {{card.time.split('-')[1]}} {{card.time.split('-')[0]}}
       md-card-actions(layout='row', layout-align='end center')
         md-button(ng-click='bc.jumpToEssay(card.title)') 阅读博文
-  div(flex-xs, flex-gt-xs='50', layout='column', masonry)
-    md-card.masonry-brick(ng-repeat='card in bc.blog', ng-if='$index % 2 != 0')
+  div(flex-xs, flex-gt-xs='50', layout='column')
+    md-card(ng-repeat='card in bc.blog', ng-if='$index % 2 != 0')
       md-card-title
         md-card-title-text
           span.md-headline {{card.title}}
