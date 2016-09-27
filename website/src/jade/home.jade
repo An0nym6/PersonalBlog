@@ -23,3 +23,16 @@ md-content(style='background-color: #f2f2f2', ng-controller='homeController as h
           span.small-words {{wc.likes}} 个点赞
           md-button.md-icon-button.close-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes()')
             md-icon(md-svg-icon='icons/like-dark.svg')
+      md-card
+        md-card-title
+          md-card-title-text
+            span.md-headline 友情链接
+        md-card-content
+          a.websiteIcon(href='https://github.com/An0nym6')
+            md-icon(md-svg-icon='icons/github.svg')
+          a.websiteIcon(href='http://www.zealer.com/')
+            md-icon(md-svg-icon='icons/zealer.svg')
+          a.websiteIcon(href='http://www.feng.com/')
+            md-icon(md-svg-icon='icons/weiphone.svg')
+          a.websiteIcon(href='https://material.google.com/')
+            md-icon(md-svg-icon='icons/google.svg')
