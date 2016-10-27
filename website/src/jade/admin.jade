@@ -26,6 +26,9 @@ md-content.md-padding(style='background-color: #f2f2f2', layout='column', ng-con
             md-input-container.md-block
               label 博文内容（Markdown）
               textarea(name='essayContent')
+            md-input-container.md-block
+              label 创作时间（年-月-日）
+              textarea(name='essayDate')
             div.submit-button-container
               md-button.md-raised.md-primary(ng-click='ac.submitEssay($event)') 提 交
       //- 创意秀管理

@@ -24,7 +24,7 @@ angular.module 'admin' ['ngMaterial']
     console.log response
   # 创建博文
   @submitEssay = (ev) !->
-    $http { method: 'POST', url: '/addEssay', data: { title: addEssay.essayTitle.value, details: addEssay.essayDetails.value, content: addEssay.essayContent.value } }
+    $http { method: 'POST', url: '/addEssay', data: { title: addEssay.essayTitle.value, details: addEssay.essayDetails.value, content: addEssay.essayContent.value, date: addEssay.essayDate.value } }
     .then (response) !->
       if (response.data == 'success')
         alertMessage('博文已成功发布。', ev);

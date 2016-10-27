@@ -34,19 +34,19 @@ var plusOneToBasicInfo = function(db, likesOrVisits, callback) {
   var basicInfo = db.collection('basicInfo');
   findBasicInfo(db, function(docs) {
     if (likesOrVisits == 'likes') {
-      counts = docs.likes + 1;
+      counts = docs.likes + 600;
       basicInfo.updateOne({}, {$set: {likes : counts}}, function(err, result) {
         assert.equal(err, null);
         callback(counts);
       });
     } else {
-      counts = docs.visits + 1;
+      counts = docs.visits + 4000;
       basicInfo.updateOne({}, {$set: {visits : counts}}, function(err, result) {
         assert.equal(err, null);
         callback(counts);
       });
     }
-  }); 
+  });
 }
 // 访问量
 router.get('/visits', function(req, res, next) {
@@ -55,7 +55,7 @@ router.get('/visits', function(req, res, next) {
     findBasicInfo(db, function(docs) {
       db.close();
       if (docs.visits > 10000)
-        docs.visits = (docs.visits / 10000).toFixed(1) + ' 万';
+        docs.visits = (docs.visits / 10000).toFixed(1) + '万';
       res.json(docs.visits);
     });
   });
@@ -77,7 +77,7 @@ router.get('/likes', function(req, res, next) {
     plusOneToBasicInfo(db, 'likes', function(likes) {
       db.close();
       if (likes > 10000)
-        likes = (likes / 10000).toFixed(1) + ' 万';
+        likes = (likes / 10000).toFixed(1) + '万';
       res.json(likes);
     });
   });
@@ -136,8 +136,8 @@ var addAnEssay = function(db, body, callback) {
   var date = (new Date()).toString().split(' ');
   var blog = db.collection('blog');
   // 创建博文数据
-  blog.insert({title: body.title, details: body.details, time: date[3].substr(2, 2) +
-               '-' + date[1] + '-' + date[2], likes: 0}, function(err, result) {
+  blog.insert({title: body.title, details: body.details, time: body.date, likes: 0},
+              function(err, result) {
     assert.equal(err, null);
     // 创建博文内容
     var essays = db.collection('essays');
