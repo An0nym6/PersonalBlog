@@ -34,13 +34,13 @@ var plusOneToBasicInfo = function(db, likesOrVisits, callback) {
   var basicInfo = db.collection('basicInfo');
   findBasicInfo(db, function(docs) {
     if (likesOrVisits == 'likes') {
-      counts = docs.likes + 600;
+      counts = docs.likes + 1;
       basicInfo.updateOne({}, {$set: {likes : counts}}, function(err, result) {
         assert.equal(err, null);
         callback(counts);
       });
     } else {
-      counts = docs.visits + 4000;
+      counts = docs.visits + 1;
       basicInfo.updateOne({}, {$set: {visits : counts}}, function(err, result) {
         assert.equal(err, null);
         callback(counts);
