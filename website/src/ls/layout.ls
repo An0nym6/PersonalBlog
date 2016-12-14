@@ -55,8 +55,11 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
     # 点赞
     $http { method: 'GET', url: '/getLikes' }
     .then (response) !->
-      console.log response.data[response.data.length - 2]
-      that.likes = response.data
+      temp = response.data + ''
+      if temp.indexOf('万') != -1
+        that.likes = temp.substring(0, temp.indexOf('万') + 1)
+      else
+        that.likes = response.data
     , (response) !->
       console.log response
     # 访问量
