@@ -55,7 +55,7 @@ router.get('/visits', function(req, res, next) {
     findBasicInfo(db, function(docs) {
       db.close();
       if (docs.visits > 10000)
-        docs.visits = (docs.visits / 10000).toFixed(1) + '万';
+        docs.visits = (docs.visits / 10000).toFixed(1) + ' 万';
       res.json(docs.visits);
     });
   });
@@ -76,9 +76,9 @@ router.get('/likes', function(req, res, next) {
     assert.equal(null, err);
     plusOneToBasicInfo(db, 'likes', function(likes) {
       db.close();
-      if (likes > 10000)
-        likes = (likes / 10000).toFixed(1) + '万';
       console.log(likes);
+      if (likes > 10000)
+        likes = (likes / 10000).toFixed(1) + ' 万';
       res.json(likes);
     });
   });

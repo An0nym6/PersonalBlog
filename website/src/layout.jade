@@ -21,12 +21,12 @@ html
               md-button.md-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes()')
                 md-icon(md-svg-icon='icons/like.svg')
               br
-              | {{wc.likes}} 个点赞
+              | {{wc.likes}}个点赞
             div(flex='33')
               md-button.md-icon-button(aria-label='Visit')
                 md-icon(md-svg-icon='icons/visit.svg')
               br
-              | {{wc.visits}} 次访问
+              | {{wc.visits}}次访问
             div(flex='33')
               md-button.md-icon-button(aria-label='Share', ng-click='wc.share($event)')
                 md-icon(md-svg-icon='icons/share.svg')
@@ -77,15 +77,16 @@ html
           h1 RANDOM THOUGHTS
       md-content.fullscreen(ui-view, flex, style='background-color: #f2f2f2')
 
-    script(src='http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js')
-    script(src='http://cdn.bootcss.com/angular.js/1.5.8/angular-aria.min.js')
-    script(src='http://cdn.bootcss.com/angular.js/1.5.8/angular-animate.min.js')
-    script(src='http://cdn.bootcss.com/angular.js/1.5.8/angular-cookies.min.js')
+    script(src='http://cdn.bootcss.com/angular.js/1.6.0/angular.min.js')
+    script(src='http://cdn.bootcss.com/angular.js/1.6.0/angular-aria.min.js')
+    script(src='http://cdn.bootcss.com/angular.js/1.6.0/angular-animate.min.js')
+    script(src='http://cdn.bootcss.com/angular.js/1.6.0/angular-cookies.min.js')
     script(src='http://cdn.bootcss.com/angular-clipboard/1.5.0/angular-clipboard.min.js')
     script(src='/node_modules/angular-marked/dist/angular-marked.min.js')
     script(src='http://cdn.bootcss.com/angular-material/1.1.1/angular-material.min.js')
     script(src='http://cdn.bootcss.com/angular-messages/1.6.0/angular-messages.min.js')
     script(src='http://cdn.bootcss.com/angular-ui-router/0.3.2/angular-ui-router.min.js')
+    script(src='http://cdn.bootcss.com/marked/0.3.6/marked.min.js')
     script(src='/js/blog.min.js')
     script(src='/js/essay.min.js')
     script(src='/js/show.min.js')
