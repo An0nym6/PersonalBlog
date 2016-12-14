@@ -1,4 +1,4 @@
-md-content.md-padding(layout-xs='column', layout='row', ng-controller='showController as sc', style='background-color: #f2f2f2')
+md-content.md-padding(ng-cloak, layout-xs='column', layout='row', ng-controller='showController as sc', style='background-color: #f2f2f2')
   div(flex-xs, flex-gt-xs='50', layout='column')
     md-card(ng-repeat='card in sc.show', ng-if='$index % 2 == 0')
       img(ng-src='{{card.imgUrl}}', class='md-card-image', alt='Show Image')

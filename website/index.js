@@ -78,6 +78,7 @@ router.get('/likes', function(req, res, next) {
       db.close();
       if (likes > 10000)
         likes = (likes / 10000).toFixed(1) + '万';
+      console.log(likes);
       res.json(likes);
     });
   });

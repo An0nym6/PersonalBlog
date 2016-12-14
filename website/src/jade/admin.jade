@@ -1,6 +1,6 @@
 link(rel='stylesheet', type='text/css', href='css/admin.min.css')
 
-md-content.md-padding(style='background-color: #f2f2f2', layout='column', ng-controller='adminController as ac')
+md-content.md-padding(ng-cloak, style='background-color: #f2f2f2', layout='column', ng-controller='adminController as ac')
   md-card
     md-tabs(md-dynamic-height, md-border-bottom)
       //- 博文管理

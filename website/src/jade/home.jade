@@ -1,11 +1,11 @@
 link(rel='stylesheet', type='text/css', href='css/home.min.css')
 
-md-content(style='background-color: #f2f2f2', ng-controller='homeController as hc')
+md-content(ng-cloak, style='background-color: #f2f2f2', ng-controller='homeController as hc')
   div.header
     img(src='img/home/homeLogo.png', alt='Home Logo')
   div.md-padding(layout-xs='column', layout='row')
     div(flex-xs, flex-gt-xs='60', layout='column')
-      md-card
+      md-card(ng-cloak)
         div(style='display:inline-block;text-align:center;position:relative', id='gameContainer')
           div(id='waiting')
             md-progress-circular.md-accent(md-mode='indeterminate', md-diameter='40')

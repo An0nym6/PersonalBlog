@@ -20,7 +20,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
 .controller 'websiteController' ($mdSidenav, $mdDialog, $state, $location, $interval, $http, $scope, clipboard) !->
   @toggleList = !->
     $mdSidenav 'left' .toggle()
-  
+
   @pageSelected =
     blog: ''
     show: ''
@@ -55,6 +55,7 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
     # 点赞
     $http { method: 'GET', url: '/getLikes' }
     .then (response) !->
+      console.log response.data[response.data.length - 2]
       that.likes = response.data
     , (response) !->
       console.log response
