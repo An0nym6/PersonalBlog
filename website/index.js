@@ -35,7 +35,6 @@ var plusOneToBasicInfo = function(db, likesOrVisits, callback) {
   findBasicInfo(db, function(docs) {
     if (likesOrVisits == 'likes') {
       counts = docs.likes + 1;
-      counts = counts - 224000;
       basicInfo.updateOne({}, {$set: {likes : counts}}, function(err, result) {
         assert.equal(err, null);
         callback(counts);
