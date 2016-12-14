@@ -21,12 +21,12 @@ html
               md-button.md-icon-button(aria-label='Like', ng-click='wc.plusOneToLikes()')
                 md-icon(md-svg-icon='icons/like.svg')
               br
-              | {{wc.likes}}个点赞
+              | {{likes}}个点赞
             div(flex='33')
               md-button.md-icon-button(aria-label='Visit')
                 md-icon(md-svg-icon='icons/visit.svg')
               br
-              | {{wc.visits}}次访问
+              | {{visits}}次访问
             div(flex='33')
               md-button.md-icon-button(aria-label='Share', ng-click='wc.share($event)')
                 md-icon(md-svg-icon='icons/share.svg')

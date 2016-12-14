@@ -55,19 +55,21 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
     # 点赞
     $http { method: 'GET', url: '/getLikes' }
     .then (response) !->
+      temp = response.data + ''
       if temp.indexOf('万') != -1
-        that.likes = response.data
+        $scope.likes = response.data
       else
-        that.likes = response.data + ' '
+        $scope.likes = response.data + ' '
     , (response) !->
       console.log response
     # 访问量
     $http { method: 'GET', url: '/visits' }
     .then (response) !->
+      temp = response.data + ''
       if temp.indexOf('万') != -1
-        that.visits = response.data
+        $scope.visits = response.data
       else
-        that.visits = response.data + ' '
+        $scope.visits = response.data + ' '
     , (response) !->
       console.log response
   , 100
@@ -76,10 +78,11 @@ angular.module 'Ren-s-Blog' ['ngMaterial', 'ui.router', 'angular-clipboard', 'bl
   @plusOneToLikes = !->
     $http { method: 'GET', url: '/likes' }
     .then (response) !->
+      temp = response.data + ''
       if temp.indexOf('万') != -1
-        that.likes = response.data
+        $scope.likes = response.data
       else
-        that.likes = response.data + ' '
+        $scope.likes = response.data + ' '
     , (response) !->
       console.log response
   @share = (ev) !->
