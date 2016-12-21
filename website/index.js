@@ -462,4 +462,9 @@ router.post('/aboutMeComments', function(req, res, next) {
   });
 });
 
+// Google 验证
+router.get('/google71d2d927a3f2b300.html', function(req, res, next) {
+  res.sendFile('google71d2d927a3f2b300.html');
+});
+
 module.exports = router
