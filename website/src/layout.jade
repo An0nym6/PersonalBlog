@@ -7,6 +7,9 @@ html
     meta(itemprop='description', name='description', content='RANDOM THOUGHTS | 刘忍的个人博客，博文，创意秀，时间轴')
     link(rel='stylesheet', href='http://cdn.bootcss.com/angular-material/1.1.1/angular-material.min.css')
     link(rel='stylesheet', type='text/css', href='css/style.min.css')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css')
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js')
+    script hljs.initHighlightingOnLoad();
   body(ng-cloak, ng-app='Ren-s-Blog', layout='row', ng-controller='websiteController as wc', md-theme='default', id='mainBody')
     md-sidenav.md-whiteframe-z2(flex, md-is-locked-open='$mdMedia("gt-sm")', md-component-id='left')
       md-content(layout='column', layout-fill)

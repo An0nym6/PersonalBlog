@@ -1,5 +1,15 @@
 angular.module 'essay' ['ngMaterial', 'hc.marked']
 
+.config (markedProvider) !->
+  markedProvider.setOptions({
+    gfm: true,
+    tables: true,
+    highlight: (code, lang) ~>
+      back = if lang
+             then hljs.highlight(lang, code, true).value
+             else hljs.highlightAuto(code).value
+  })
+
 .controller 'essayController' ($http, $location, $scope, $cookies) !->
   # 请求博文的数据
   $http { method: 'POST', url: '/essay', data: { title: $location.$$path.split('/')[2] } }
