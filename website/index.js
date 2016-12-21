@@ -464,7 +464,7 @@ router.post('/aboutMeComments', function(req, res, next) {
 
 // Google 验证
 router.get('/google71d2d927a3f2b300.html', function(req, res, next) {
-  res.sendFile(path.join(__dirname, 'google71d2d927a3f2b300.html'));
+  res.sendFile(path.join(__dirname, '/google71d2d927a3f2b300.html'));
 });
 
 module.exports = router
