@@ -468,4 +468,12 @@ router.get('/google71d2d927a3f2b300.html', function(req, res, next) {
   res.sendFile(path.join(__dirname, '/google71d2d927a3f2b300.html'));
 });
 
+router.get('*', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '/404.html'));
+});
+
+router.post('*', function(req, res, next) {
+  res.json('ERROR');
+});
+
 module.exports = router
