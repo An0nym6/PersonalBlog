@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require("path");
 
 // 引入 MongoDB
 var MongoClient = require('mongodb').MongoClient
