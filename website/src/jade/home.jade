@@ -36,3 +36,4 @@ md-content(ng-cloak, style='background-color: #f2f2f2', ng-controller='homeContr
             md-icon(md-svg-icon='icons/weiphone.svg')
           a.websiteIcon(href='https://material.google.com/')
             md-icon(md-svg-icon='icons/google.svg')
+  a(ng-repeat='blog in blogs', href='{{"http://liurencloud.com/#!/essay/" + blog.title}}') 1

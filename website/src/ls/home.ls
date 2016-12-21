@@ -1,6 +1,13 @@
 angular.module 'home' ['ngMaterial']
 
-.controller 'homeController' ($interval) !->
+.controller 'homeController' ($interval, $http, $scope) !->
+  # 请求博文的数据
+  $http { method: 'GET', url: '/blog' }
+  .then (response) !->
+    $scope.blogs = response.data
+  , (response) !->
+    console.log response
+
   # 实时刷新大小
   $interval !->
     gameContainer = document.getElementById 'gameContainer'
